@@ -11,5 +11,5 @@ public class AppConfig {
     public RestTemplate registryRestTemplate() {
         return new RestTemplate();
     }
-    
+
 }
