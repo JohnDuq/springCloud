@@ -2,7 +2,27 @@
     "configurations": [
         {
             "type": "java",
-            "name": "service-producer 8001",
+            "name": "SERVICE-PRODUCER",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.udemy.spring.cloud.service.producer.app.ServiceProducerApplication",
+            "projectName": "service-producer",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "SERVICE-PRODUCER 2",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.udemy.spring.cloud.service.producer.app.ServiceProducerApplication",
+            "projectName": "service-producer",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "SERVICE-PRODUCER PORT 8001",
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
@@ -13,7 +33,7 @@
         },
         {
             "type": "java",
-            "name": "service-producer 9001",
+            "name": "SERVICE-PRODUCER PORT 9001",
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
