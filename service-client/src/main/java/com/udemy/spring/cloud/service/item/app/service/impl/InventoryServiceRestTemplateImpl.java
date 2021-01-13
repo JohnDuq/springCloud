@@ -22,20 +22,16 @@ public class InventoryServiceRestTemplateImpl implements IInventoryService {
 
     @Override
     public List<Inventory> findAll() {
-        List<Item> lItems = Arrays.asList(restTemplate.getForObject("http://localhost:8001/findAll", Item[].class));
-
-        return lItems.stream()
-        .map(item -> new Inventory(item, 1))
-        .collect(Collectors.toList());
-        
+        List<Item> lItems = Arrays.asList(restTemplate.getForObject("http://service-producer/findAll", Item[].class));
+        return lItems.stream().map(item -> new Inventory(item, 1)).collect(Collectors.toList());
     }
 
     @Override
     public Inventory findById(Long id, Integer amount) {
         Map<String, String> mPathVariables = new HashMap<>();
         mPathVariables.put("id", id.toString());
-        Item item = restTemplate.getForObject("http://localhost:8001/findById/{id}", Item.class, mPathVariables);
+        Item item = restTemplate.getForObject("http://service-producer/findById/{id}", Item.class, mPathVariables);
         return new Inventory(item, amount);
     }
-    
+
 }
