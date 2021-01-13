@@ -19,5 +19,6 @@ public class Item {
     private String name;
     private Double price;
     private Date createAt;
+    private Integer serverPort;
 
 }
