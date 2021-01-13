@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public class InventoryServiceImpl implements IInventoryService {
+public class InventoryServiceRestTemplateImpl implements IInventoryService {
 
     @Autowired
     private RestTemplate restTemplate;

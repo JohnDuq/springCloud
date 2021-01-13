@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class ItemController {
+public class ItemRestController {
 
     @Autowired
     private IItemService iItemService;

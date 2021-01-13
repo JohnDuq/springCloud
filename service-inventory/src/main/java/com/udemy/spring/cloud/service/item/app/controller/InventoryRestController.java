@@ -6,14 +6,16 @@ import com.udemy.spring.cloud.service.item.app.model.data.Inventory;
 import com.udemy.spring.cloud.service.item.app.service.IInventoryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class InventoryController {
+public class InventoryRestController {
 
     @Autowired
+    @Qualifier("inventoryServiceFeignImpl")
     private IInventoryService iInventoryService;
 
     @GetMapping("/findAll")
