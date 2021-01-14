@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "SERVER-EUREKA",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.udemy.spring.cloud.eureka.server.app.ServerEurekaApplication",
+            "projectName": "server-eureka",
+            "args": ""
+        }
+    ]
+}
