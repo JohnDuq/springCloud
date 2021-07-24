@@ -28,7 +28,8 @@ public class ItemRestController {
     @GetMapping("/findAll")
     public List<Item> findAll() {
         return iItemService.findAll().stream().map(item -> {
-            item.setServerPort(serverPort);
+            // item.setServerPort(serverPort);
+            item.setServerPort(Integer.parseInt(environment.getProperty("local.server.port")));
             return item;
         }).collect(Collectors.toList());
     }
