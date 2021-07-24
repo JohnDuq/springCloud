@@ -19,7 +19,7 @@
         },
         {
             "type": "java",
-            "name": "service-producer 8001",
+            "name": "service-producer random port",
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
