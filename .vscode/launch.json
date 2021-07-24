@@ -2,14 +2,24 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Launch EurekaServerApplication",
+            "name": "eureka-server 8761",
             "request": "launch",
             "mainClass": "com.udemy.spring.cloud.server.eureka.eurekaserver.EurekaServerApplication",
             "projectName": "eureka-server"
         },
         {
             "type": "java",
-            "name": "Spring Boot-ServiceProducerApplication<service-producer>",
+            "name": "service-client 8002",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.udemy.spring.cloud.service.item.app.ServiceItemApplication",
+            "projectName": "service-client",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "service-producer 8001",
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
@@ -19,13 +29,14 @@
         },
         {
             "type": "java",
-            "name": "Spring Boot-ServiceItemApplication<service-client>",
+            "name": "service-producer 9001",
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
-            "mainClass": "com.udemy.spring.cloud.service.item.app.ServiceItemApplication",
-            "projectName": "service-client",
-            "args": ""
-        }
+            "mainClass": "com.udemy.spring.cloud.service.producer.app.ServiceProducerApplication",
+            "projectName": "service-producer",
+            "args": "",
+            "vmArgs": "-Dserver.port=9001"
+        },
     ]
 }
