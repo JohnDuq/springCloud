@@ -38,5 +38,15 @@
             "args": "",
             "vmArgs": "-Dserver.port=9001"
         },
+        {
+            "type": "java",
+            "name": "Spring Boot-ZuulGatewayApplication<zuul-gateway>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.udemy.spring.cloud.gateway.zuul.zuulgateway.ZuulGatewayApplication",
+            "projectName": "zuul-gateway",
+            "args": ""
+        }
     ]
 }
