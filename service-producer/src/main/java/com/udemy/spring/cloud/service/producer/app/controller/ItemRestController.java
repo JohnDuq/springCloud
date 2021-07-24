@@ -25,12 +25,9 @@ public class ItemRestController {
     @Value("${server.port}")
     private Integer serverPort;
 
-
     @GetMapping("/findAll")
     public List<Item> findAll() {
-        return iItemService.findAll()
-        .stream()
-        .map(item -> {
+        return iItemService.findAll().stream().map(item -> {
             item.setServerPort(serverPort);
             return item;
         }).collect(Collectors.toList());
@@ -40,6 +37,12 @@ public class ItemRestController {
     public Item findAll(@PathVariable Long id) {
         Item item = iItemService.findById(id);
         item.setServerPort(Integer.parseInt(environment.getProperty("local.server.port")));
+
+        // Error simulation
+        // boolean ok = false;
+        // if (!ok) {
+        // throw new RuntimeException("Error simulation");
+        // }
         return item;
     }
 

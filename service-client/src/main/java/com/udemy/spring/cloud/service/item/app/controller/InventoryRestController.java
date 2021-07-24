@@ -2,7 +2,9 @@ package com.udemy.spring.cloud.service.item.app.controller;
 
 import java.util.List;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.udemy.spring.cloud.service.item.app.model.data.Inventory;
+import com.udemy.spring.cloud.service.item.app.model.data.Item;
 import com.udemy.spring.cloud.service.item.app.service.IInventoryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +23,21 @@ public class InventoryRestController {
         return iInventoryService.findAll();
     }
 
+    @HystrixCommand(fallbackMethod = "alternativeMethod")
     @GetMapping("/findByIdAmount/{id}/{amount}")
     public Inventory findById(@PathVariable Long id, @PathVariable Integer amount) {
         return iInventoryService.findById(id, amount);
+    }
+
+    public Inventory alternativeMethod(Long id, Integer amount) {
+        Inventory inventory = new Inventory();
+        inventory.setAmount(amount);
+        Item item = new Item();
+        item.setId(id);
+        item.setName("Alternative Method");
+        item.setPrice(500d);
+        inventory.setItem(item);
+        return inventory;
     }
 
 }
