@@ -43,6 +43,14 @@ public class ItemRestController {
         // if (!ok) {
         // throw new RuntimeException("Error simulation");
         // }
+
+        // Timeout simulation
+        // try {
+        // Thread.sleep(2000l);
+        // } catch (InterruptedException e) {
+        // e.printStackTrace();
+        // }
+
         return item;
     }
 
