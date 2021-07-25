@@ -1,13 +1,20 @@
 package com.udemy.spring.cloud.service.item.app.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.udemy.spring.cloud.service.item.app.model.data.Inventory;
 import com.udemy.spring.cloud.service.item.app.model.data.Item;
 import com.udemy.spring.cloud.service.item.app.service.IInventoryService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,8 +22,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class InventoryRestController {
 
+    private static Logger log = LoggerFactory.getLogger(InventoryRestController.class);
+
     @Autowired
     private IInventoryService iInventoryService;
+
+    @Value("${text.configuration}")
+    private String textConfiguration;
 
     @GetMapping("/findAll")
     public List<Inventory> findAll() {
@@ -38,6 +50,16 @@ public class InventoryRestController {
         item.setPrice(500d);
         inventory.setItem(item);
         return inventory;
+    }
+
+    @GetMapping("/get-config")
+    private ResponseEntity<?> getConfiguration(@Value("${server.port}") String serverPort) {
+        log.info(String.format("textConfiguration : %s", textConfiguration));
+        log.info(String.format("serverPort : %s", serverPort));
+        Map<String, String> json = new HashMap<>();
+        json.put("text.configuration", textConfiguration);
+        json.put("server.port", serverPort);
+        return new ResponseEntity<Map<String, String>>(json, HttpStatus.OK);
     }
 
 }
