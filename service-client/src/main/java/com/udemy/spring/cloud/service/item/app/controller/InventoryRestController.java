@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
-
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.udemy.spring.cloud.service.item.app.model.data.Inventory;
 import com.udemy.spring.cloud.service.item.app.model.data.Item;
@@ -29,15 +27,9 @@ public class InventoryRestController {
 
     @Autowired
     private Environment env;
-    private String[] profiles;
 
     @Autowired
     private IInventoryService iInventoryService;
-
-    @PostConstruct
-    public void init() {
-        profiles = env.getActiveProfiles();
-    }
 
     @GetMapping("/findAll")
     public List<Inventory> findAll() {
@@ -69,7 +61,7 @@ public class InventoryRestController {
         Map<String, String> json = new HashMap<>();
         json.put("text.configuration", textConfiguration);
         json.put("server.port", serverPort);
-        if (profiles.length > 0 && profiles[0].equals("dev")) {
+        if (env.getActiveProfiles().length > 0 && env.getActiveProfiles()[0].equals("dev")) {
             json.put("name.autor.configuration", env.getProperty("name.autor.configuration"));
             json.put("email.autor.configuration", env.getProperty("email.autor.configuration"));
         }
