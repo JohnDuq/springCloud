@@ -26,9 +26,6 @@ public class InventoryRestController {
     private static Logger log = LoggerFactory.getLogger(InventoryRestController.class);
 
     @Autowired
-    private Environment environment;
-
-    @Autowired
     private IInventoryService iInventoryService;
 
     @GetMapping("/findAll")
@@ -55,7 +52,7 @@ public class InventoryRestController {
 
     @GetMapping("/get-config")
     private ResponseEntity<?> getConfiguration(@Value("${server.port}") String serverPort,
-            @Value("${text.configuration}") String textConfiguration) {
+            @Value("${text.configuration}") String textConfiguration, Environment environment) {
         log.info(String.format("textConfiguration : %s", textConfiguration));
         log.info(String.format("serverPort : %s", serverPort));
         Map<String, String> json = new HashMap<>();
