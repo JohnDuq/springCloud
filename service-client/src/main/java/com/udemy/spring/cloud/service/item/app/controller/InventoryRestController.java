@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,10 +26,10 @@ public class InventoryRestController {
     private static Logger log = LoggerFactory.getLogger(InventoryRestController.class);
 
     @Autowired
-    private IInventoryService iInventoryService;
+    private Environment environment;
 
-    @Value("${text.configuration}")
-    private String textConfiguration;
+    @Autowired
+    private IInventoryService iInventoryService;
 
     @GetMapping("/findAll")
     public List<Inventory> findAll() {
@@ -53,12 +54,17 @@ public class InventoryRestController {
     }
 
     @GetMapping("/get-config")
-    private ResponseEntity<?> getConfiguration(@Value("${server.port}") String serverPort) {
+    private ResponseEntity<?> getConfiguration(@Value("${server.port}") String serverPort,
+            @Value("${text.configuration}") String textConfiguration) {
         log.info(String.format("textConfiguration : %s", textConfiguration));
         log.info(String.format("serverPort : %s", serverPort));
         Map<String, String> json = new HashMap<>();
         json.put("text.configuration", textConfiguration);
         json.put("server.port", serverPort);
+        if (environment.getActiveProfiles().length > 0 && environment.getActiveProfiles()[0].equals("dev")) {
+            json.put("name.autor.configuration", environment.getProperty("name.autor.configuration"));
+            json.put("email.autor.configuration", environment.getProperty("email.autor.configuration"));
+        }
         return new ResponseEntity<Map<String, String>>(json, HttpStatus.OK);
     }
 
