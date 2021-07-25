@@ -26,6 +26,9 @@ public class InventoryRestController {
     private static Logger log = LoggerFactory.getLogger(InventoryRestController.class);
 
     @Autowired
+    private Environment env;
+
+    @Autowired
     private IInventoryService iInventoryService;
 
     @GetMapping("/findAll")
@@ -52,15 +55,15 @@ public class InventoryRestController {
 
     @GetMapping("/get-config")
     private ResponseEntity<?> getConfiguration(@Value("${server.port}") String serverPort,
-            @Value("${text.configuration}") String textConfiguration, Environment environment) {
+            @Value("${text.configuration}") String textConfiguration) {
         log.info(String.format("textConfiguration : %s", textConfiguration));
         log.info(String.format("serverPort : %s", serverPort));
         Map<String, String> json = new HashMap<>();
         json.put("text.configuration", textConfiguration);
         json.put("server.port", serverPort);
-        if (environment.getActiveProfiles().length > 0 && environment.getActiveProfiles()[0].equals("dev")) {
-            json.put("name.autor.configuration", environment.getProperty("name.autor.configuration"));
-            json.put("email.autor.configuration", environment.getProperty("email.autor.configuration"));
+        if (env.getActiveProfiles().length > 0 && env.getActiveProfiles()[0].equals("dev")) {
+            json.put("name.autor.configuration", env.getProperty("name.autor.configuration"));
+            json.put("email.autor.configuration", env.getProperty("email.autor.configuration"));
         }
         return new ResponseEntity<Map<String, String>>(json, HttpStatus.OK);
     }
