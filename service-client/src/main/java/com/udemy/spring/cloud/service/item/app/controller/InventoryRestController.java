@@ -54,7 +54,7 @@ public class InventoryRestController {
     }
 
     @GetMapping("/get-config")
-    private ResponseEntity<?> getConfiguration(@Value("${server.port}") String serverPort,
+    public ResponseEntity<?> getConfiguration(@Value("${server.port}") String serverPort,
             @Value("${text.configuration}") String textConfiguration) {
         log.info(String.format("textConfiguration : %s", textConfiguration));
         log.info(String.format("serverPort : %s", serverPort));
