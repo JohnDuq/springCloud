@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
+
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.udemy.spring.cloud.service.item.app.model.data.Inventory;
 import com.udemy.spring.cloud.service.item.app.model.data.Item;
@@ -25,15 +27,17 @@ public class InventoryRestController {
 
     private static Logger log = LoggerFactory.getLogger(InventoryRestController.class);
 
-    private Environment environment;
-
     @Autowired
-    public InventoryRestController(Environment env) {
-        environment = env;
-    }
+    private Environment env;
+    private String[] profiles;
 
     @Autowired
     private IInventoryService iInventoryService;
+
+    @PostConstruct
+    public void init() {
+        profiles = env.getActiveProfiles();
+    }
 
     @GetMapping("/findAll")
     public List<Inventory> findAll() {
@@ -65,9 +69,9 @@ public class InventoryRestController {
         Map<String, String> json = new HashMap<>();
         json.put("text.configuration", textConfiguration);
         json.put("server.port", serverPort);
-        if (environment.getActiveProfiles().length > 0 && environment.getActiveProfiles()[0].equals("dev")) {
-            json.put("name.autor.configuration", environment.getProperty("name.autor.configuration"));
-            json.put("email.autor.configuration", environment.getProperty("email.autor.configuration"));
+        if (profiles.length > 0 && profiles[0].equals("dev")) {
+            json.put("name.autor.configuration", env.getProperty("name.autor.configuration"));
+            json.put("email.autor.configuration", env.getProperty("email.autor.configuration"));
         }
         return new ResponseEntity<Map<String, String>>(json, HttpStatus.OK);
     }
