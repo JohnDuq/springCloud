@@ -6,110 +6,206 @@
 	},
 	"item": [
 		{
-			"name": "findAll",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8002/findAll",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8002",
-					"path": [
-						"findAll"
-					]
+			"name": "Config Server",
+			"item": [
+				{
+					"name": "service-client default",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8888/service-client/default",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"service-client",
+								"default"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "service-client dev",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8888/service-client/dev",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"service-client",
+								"dev"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "service-client prod",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8888/service-client/prod",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"service-client",
+								"prod"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "findByIdAmount",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8002/findByIdAmount/1/4",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8002",
-					"path": [
-						"findByIdAmount",
-						"1",
-						"4"
-					]
+			"name": "Gateway",
+			"item": [
+				{
+					"name": "findAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/gateway/api/client/findAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"gateway",
+								"api",
+								"client",
+								"findAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findByIdAmount",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/gateway/api/client/findByIdAmount/1/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"gateway",
+								"api",
+								"client",
+								"findByIdAmount",
+								"1",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "client get-config",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/gateway/api/client/get-config",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"gateway",
+								"api",
+								"client",
+								"get-config"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Gateway findAll",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8090/gateway/api/client/findAll",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8090",
-					"path": [
-						"gateway",
-						"api",
-						"client",
-						"findAll"
-					]
+			"name": "Client",
+			"item": [
+				{
+					"name": "findAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8002/findAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8002",
+							"path": [
+								"findAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findByIdAmount",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8002/findByIdAmount/1/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8002",
+							"path": [
+								"findByIdAmount",
+								"1",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-config",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8014/get-config",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8014",
+							"path": [
+								"get-config"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
-		},
-		{
-			"name": "Gateway findByIdAmount",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8090/gateway/api/client/findByIdAmount/1/4",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8090",
-					"path": [
-						"gateway",
-						"api",
-						"client",
-						"findByIdAmount",
-						"1",
-						"4"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Config service-client default",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8888/service-client/default",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8888",
-					"path": [
-						"service-client",
-						"default"
-					]
-				}
-			},
-			"response": []
+			]
 		}
 	]
 }
