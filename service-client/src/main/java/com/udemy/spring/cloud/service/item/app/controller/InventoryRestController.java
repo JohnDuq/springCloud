@@ -23,6 +23,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class InventoryRestController {
 
+    private static final String EMAIL_AUTOR_CONFIGURATION = "email.autor.configuration";
+    private static final String NAME_AUTOR_CONFIGURATION = "name.autor.configuration";
+
     private static Logger log = LoggerFactory.getLogger(InventoryRestController.class);
 
     @Autowired
@@ -64,8 +67,8 @@ public class InventoryRestController {
         json.put("text.configuration", textConfiguration);
         json.put("server.port", serverPort);
         if (env.getActiveProfiles().length > 0 && env.getActiveProfiles()[0].equals("dev")) {
-            json.put("name.autor.configuration", env.getProperty("name.autor.configuration"));
-            json.put("email.autor.configuration", env.getProperty("email.autor.configuration"));
+            json.put(NAME_AUTOR_CONFIGURATION, env.getProperty(NAME_AUTOR_CONFIGURATION));
+            json.put(EMAIL_AUTOR_CONFIGURATION, env.getProperty(EMAIL_AUTOR_CONFIGURATION));
         }
         return new ResponseEntity<Map<String, String>>(json, HttpStatus.OK);
     }
