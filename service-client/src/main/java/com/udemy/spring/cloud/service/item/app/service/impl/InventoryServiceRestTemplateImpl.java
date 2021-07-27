@@ -11,10 +11,13 @@ import com.udemy.spring.cloud.service.item.app.model.data.Item;
 import com.udemy.spring.cloud.service.item.app.service.IInventoryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-@Service
+@Service("InventoryServiceRestTemplateImpl")
 public class InventoryServiceRestTemplateImpl implements IInventoryService {
 
     @Autowired
@@ -32,6 +35,31 @@ public class InventoryServiceRestTemplateImpl implements IInventoryService {
         mPathVariables.put("id", id.toString());
         Item item = restTemplate.getForObject("http://service-producer/findById/{id}", Item.class, mPathVariables);
         return new Inventory(item, amount);
+    }
+
+    @Override
+    public Item save(Item item) {
+        HttpEntity<Item> body = new HttpEntity<Item>(item);
+        ResponseEntity<Item> responseHttp = restTemplate.exchange("http://service-producer/create", HttpMethod.POST,
+                body, Item.class);
+        return responseHttp.getBody();
+    }
+
+    @Override
+    public Item update(Long id, Item item) {
+        Map<String, String> mPathVariables = new HashMap<>();
+        mPathVariables.put("id", id.toString());
+        HttpEntity<Item> body = new HttpEntity<Item>(item);
+        ResponseEntity<Item> responseHttp = restTemplate.exchange("http://service-producer/update/{id}", HttpMethod.PUT,
+                body, Item.class, mPathVariables);
+        return responseHttp.getBody();
+    }
+
+    @Override
+    public void delete(Long id) {
+        Map<String, String> mPathVariables = new HashMap<>();
+        mPathVariables.put("id", id.toString());
+        restTemplate.delete("http://service-producer/delete/{id}", mPathVariables);
     }
 
 }

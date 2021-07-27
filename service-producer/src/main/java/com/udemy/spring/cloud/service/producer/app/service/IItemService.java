@@ -10,4 +10,8 @@ public interface IItemService {
 
     public Item findById(Long id);
 
+    public Item save(Item item);
+
+    public void deleteById(Long id);
+
 }

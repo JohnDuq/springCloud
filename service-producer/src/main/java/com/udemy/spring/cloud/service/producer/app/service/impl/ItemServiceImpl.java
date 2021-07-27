@@ -28,4 +28,16 @@ public class ItemServiceImpl implements IItemService {
         return itemDao.findById(id).orElse(null);
     }
 
+    @Override
+    @Transactional
+    public Item save(Item item) {
+        return itemDao.save(item);
+    }
+
+    @Override
+    @Transactional
+    public void deleteById(Long id) {
+        itemDao.deleteById(id);
+    }
+
 }

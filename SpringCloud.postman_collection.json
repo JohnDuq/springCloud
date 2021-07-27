@@ -96,6 +96,28 @@
 					"response": []
 				},
 				{
+					"name": "producer findAll Items",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/gateway/api/producer/findAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"gateway",
+								"api",
+								"producer",
+								"findAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "findByIdAmount",
 					"request": {
 						"method": "GET",
@@ -136,6 +158,201 @@
 								"api",
 								"client",
 								"get-config"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actuator refresh",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/gateway/api/client/actuator/refresh",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"gateway",
+								"api",
+								"client",
+								"actuator",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "producer create item",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"item created by post request\",\r\n    \"price\":1400,\r\n    \"createAt\": \"2021-07-27\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/gateway/api/producer/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"gateway",
+								"api",
+								"producer",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "client create item",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"item created by post request\",\r\n    \"price\":1400,\r\n    \"createAt\": \"2021-07-27\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/gateway/api/client/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"gateway",
+								"api",
+								"client",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "producer update item",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"item created by post request 2\",\r\n    \"price\":1500,\r\n    \"createAt\": \"2021-07-28\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/gateway/api/producer/update/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"gateway",
+								"api",
+								"producer",
+								"update",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "client update item",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"item created by post request 2\",\r\n    \"price\":1500,\r\n    \"createAt\": \"2021-07-28\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/gateway/api/client/update/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"gateway",
+								"api",
+								"client",
+								"update",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "producer delete item",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/gateway/api/producer/delete/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"gateway",
+								"api",
+								"producer",
+								"delete",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "client delete item",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/gateway/api/client/delete/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"gateway",
+								"api",
+								"client",
+								"delete",
+								"5"
 							]
 						}
 					},
@@ -187,7 +404,7 @@
 					"response": []
 				},
 				{
-					"name": "get-config",
+					"name": "get-config default",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -204,8 +421,89 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "get-config direct",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8002/get-config",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8002",
+							"path": [
+								"get-config"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-config dev",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8014/get-config",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8014",
+							"path": [
+								"get-config"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-config prod",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8018/get-config",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8018",
+							"path": [
+								"get-config"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actuator refresh",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8014/actuator/refresh",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8014",
+							"path": [
+								"actuator",
+								"refresh"
+							]
+						}
+					},
+					"response": []
 				}
 			]
+		},
+		{
+			"name": "Producer",
+			"item": []
 		}
 	]
 }
