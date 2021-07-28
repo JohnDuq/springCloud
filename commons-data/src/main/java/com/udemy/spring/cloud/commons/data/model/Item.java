@@ -1,4 +1,4 @@
-package com.udemy.spring.cloud.commons.model.data;
+package com.udemy.spring.cloud.commons.data.model;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -29,6 +29,17 @@ public class Item implements Serializable {
     private Date createAt;
     @Transient
     private Integer serverPort;
+
+    public Item() {
+    }
+
+    public Item(Long id, String name, Double price, Date createAt, Integer serverPort) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.createAt = createAt;
+        this.serverPort = serverPort;
+    }
 
     public Long getId() {
         return id;
