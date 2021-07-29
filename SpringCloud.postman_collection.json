@@ -74,7 +74,7 @@
 			"name": "Gateway",
 			"item": [
 				{
-					"name": "findAll",
+					"name": "client findAll",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -96,29 +96,7 @@
 					"response": []
 				},
 				{
-					"name": "producer findAll Items",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8090/gateway/api/producer/findAll",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8090",
-							"path": [
-								"gateway",
-								"api",
-								"producer",
-								"findAll"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "findByIdAmount",
+					"name": "client findByIdAmount",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -158,6 +136,28 @@
 								"api",
 								"client",
 								"get-config"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "producer findAll Items",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/gateway/api/producer/findAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"gateway",
+								"api",
+								"producer",
+								"findAll"
 							]
 						}
 					},
