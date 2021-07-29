@@ -1,6 +1,6 @@
 package com.udemy.spring.cloud.service.producer.app.model.database;
 
-import com.udemy.spring.cloud.service.producer.app.model.data.Item;
+import com.udemy.spring.cloud.commons.model.data.Item;
 
 import org.springframework.data.repository.CrudRepository;
 

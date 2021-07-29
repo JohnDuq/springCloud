@@ -2,7 +2,7 @@ package com.udemy.spring.cloud.service.producer.app.service.impl;
 
 import java.util.List;
 
-import com.udemy.spring.cloud.service.producer.app.model.data.Item;
+import com.udemy.spring.cloud.commons.model.data.Item;
 import com.udemy.spring.cloud.service.producer.app.model.database.ItemDao;
 import com.udemy.spring.cloud.service.producer.app.service.IItemService;
 

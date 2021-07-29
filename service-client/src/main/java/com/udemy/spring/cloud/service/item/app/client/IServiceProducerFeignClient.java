@@ -2,7 +2,7 @@ package com.udemy.spring.cloud.service.item.app.client;
 
 import java.util.List;
 
-import com.udemy.spring.cloud.service.item.app.model.data.Item;
+import com.udemy.spring.cloud.commons.model.data.Item;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.DeleteMapping;

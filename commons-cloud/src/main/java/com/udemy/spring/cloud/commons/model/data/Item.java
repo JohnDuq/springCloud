@@ -1,4 +1,4 @@
-package com.udemy.spring.cloud.commons.data.model;
+package com.udemy.spring.cloud.commons.model.data;
 
 import java.io.Serializable;
 import java.util.Date;

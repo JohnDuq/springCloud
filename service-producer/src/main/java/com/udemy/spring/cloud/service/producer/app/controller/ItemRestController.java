@@ -3,7 +3,7 @@ package com.udemy.spring.cloud.service.producer.app.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.udemy.spring.cloud.service.producer.app.model.data.Item;
+import com.udemy.spring.cloud.commons.model.data.Item;
 import com.udemy.spring.cloud.service.producer.app.service.IItemService;
 
 import org.springframework.beans.factory.annotation.Autowired;

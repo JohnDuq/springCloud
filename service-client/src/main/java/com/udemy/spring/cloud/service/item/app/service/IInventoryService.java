@@ -2,8 +2,8 @@ package com.udemy.spring.cloud.service.item.app.service;
 
 import java.util.List;
 
+import com.udemy.spring.cloud.commons.model.data.Item;
 import com.udemy.spring.cloud.service.item.app.model.data.Inventory;
-import com.udemy.spring.cloud.service.item.app.model.data.Item;
 
 public interface IInventoryService {
 

@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.udemy.spring.cloud.commons.model.data.Item;
 import com.udemy.spring.cloud.service.item.app.model.data.Inventory;
-import com.udemy.spring.cloud.service.item.app.model.data.Item;
 import com.udemy.spring.cloud.service.item.app.service.IInventoryService;
 
 import org.slf4j.Logger;

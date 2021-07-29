@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.udemy.spring.cloud.commons.model.data.Item;
 import com.udemy.spring.cloud.service.item.app.model.data.Inventory;
-import com.udemy.spring.cloud.service.item.app.model.data.Item;
 import com.udemy.spring.cloud.service.item.app.service.IInventoryService;
 
 import org.springframework.beans.factory.annotation.Autowired;

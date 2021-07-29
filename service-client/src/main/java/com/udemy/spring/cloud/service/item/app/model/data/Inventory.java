@@ -1,5 +1,7 @@
 package com.udemy.spring.cloud.service.item.app.model.data;
 
+import com.udemy.spring.cloud.commons.model.data.Item;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
