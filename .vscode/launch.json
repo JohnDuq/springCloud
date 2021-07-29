@@ -54,6 +54,15 @@
             "mainClass": "com.udemy.spring.cloud.gateway.zuul.zuulgateway.ZuulGatewayApplication",
             "projectName": "zuul-gateway",
             "args": ""
+        },
+        {
+            "type": "java",
+            "name": "user-cloud",
+            "request": "launch",
+            "mainClass": "com.udemy.spring.cloud.user.UserCloudApplication",
+            "projectName": "user-cloud",
+            "args": "",
+            "vmArgs": ""
         }
     ]
 }
