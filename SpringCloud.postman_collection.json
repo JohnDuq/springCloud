@@ -96,6 +96,28 @@
 					"response": []
 				},
 				{
+					"name": "user-dao",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/gateway/api/user/user-dao",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"gateway",
+								"api",
+								"user",
+								"user-dao"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "client findByIdAmount",
 					"request": {
 						"method": "GET",
