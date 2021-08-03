@@ -1,8 +1,8 @@
 package com.udemy.spring.cloud.user;
 
-import com.udemy.spring.cloud.user.model.data.Role;
-import com.udemy.spring.cloud.user.model.data.User;
-import com.udemy.spring.cloud.user.model.data.UserRole;
+import com.udemy.spring.cloud.commons.model.auth.Role;
+import com.udemy.spring.cloud.commons.model.auth.User;
+import com.udemy.spring.cloud.commons.model.auth.UserRole;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;

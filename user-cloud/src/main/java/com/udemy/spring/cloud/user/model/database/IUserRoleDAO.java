@@ -1,6 +1,6 @@
 package com.udemy.spring.cloud.user.model.database;
 
-import com.udemy.spring.cloud.user.model.data.UserRole;
+import com.udemy.spring.cloud.commons.model.auth.UserRole;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;

@@ -1,6 +1,6 @@
 package com.udemy.spring.cloud.user.model.database;
 
-import com.udemy.spring.cloud.user.model.data.User;
+import com.udemy.spring.cloud.commons.model.auth.User;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;

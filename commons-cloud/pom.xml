@@ -26,4 +26,5 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	<!-- EJECUTAR COMANDO "mvn clean install"-->
 </project>

@@ -2,7 +2,7 @@ package com.udemy.spring.cloud.user.model.database;
 
 import java.util.List;
 
-import com.udemy.spring.cloud.user.model.data.Role;
+import com.udemy.spring.cloud.commons.model.auth.Role;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
