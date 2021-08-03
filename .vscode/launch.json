@@ -5,64 +5,74 @@
             "name": "config-server 8888",
             "request": "launch",
             "mainClass": "com.udemy.spring.cloud.server.config.configserver.ConfigServerApplication",
-            "projectName": "config-server"
+            "projectName": "config-server",
+            "args": "",
+            "vmArgs": "",
+            "console": "internalConsole"
         },
         {
             "type": "java",
             "name": "eureka-server 8761",
             "request": "launch",
             "mainClass": "com.udemy.spring.cloud.server.eureka.eurekaserver.EurekaServerApplication",
-            "projectName": "eureka-server"
+            "projectName": "eureka-server",
+            "args": "",
+            "vmArgs": "",
+            "console": "internalConsole"
         },
         {
             "type": "java",
             "name": "service-client 8002",
             "request": "launch",
             "cwd": "${workspaceFolder}",
-            "console": "internalConsole",
             "mainClass": "com.udemy.spring.cloud.service.item.app.ServiceItemApplication",
             "projectName": "service-client",
-            "args": ""
+            "args": "",
+            "vmArgs": "",
+            "console": "internalConsole"
         },
         {
             "type": "java",
             "name": "service-producer random port",
             "request": "launch",
             "cwd": "${workspaceFolder}",
-            "console": "internalConsole",
             "mainClass": "com.udemy.spring.cloud.service.producer.app.ServiceProducerApplication",
             "projectName": "service-producer",
-            "args": ""
+            "args": "",
+            "vmArgs": "",
+            "console": "internalConsole"
         },
         {
             "type": "java",
             "name": "service-producer 8001",
             "request": "launch",
             "cwd": "${workspaceFolder}",
-            "console": "internalConsole",
             "mainClass": "com.udemy.spring.cloud.service.producer.app.ServiceProducerApplication",
             "projectName": "service-producer",
             "args": "",
-            "vmArgs": "-Dserver.port=8001"
+            "vmArgs": "-Dserver.port=8001",
+            "console": "internalConsole"
         },
         {
             "type": "java",
             "name": "zuul-gateway 8090",
             "request": "launch",
             "cwd": "${workspaceFolder}",
-            "console": "internalConsole",
             "mainClass": "com.udemy.spring.cloud.gateway.zuul.zuulgateway.ZuulGatewayApplication",
             "projectName": "zuul-gateway",
-            "args": ""
+            "args": "",
+            "vmArgs": "",
+            "console": "internalConsole"
         },
         {
             "type": "java",
-            "name": "user-cloud",
+            "name": "user-cloud random port",
             "request": "launch",
             "mainClass": "com.udemy.spring.cloud.user.UserCloudApplication",
             "projectName": "user-cloud",
             "args": "",
-            "vmArgs": ""
+            "vmArgs": "",
+            "console": "internalConsole"
         }
     ]
 }
