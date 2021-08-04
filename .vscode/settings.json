@@ -1,0 +1,39 @@
+{
+    "editor.rulers": [
+        120
+    ],
+    "workbench.colorCustomizations": {
+        "titleBar.activeBackground": "#111c1f",
+        "activityBar.background": "#111c1f",
+        "terminal.background": "#111c1f",
+        "menu.background": "#111c1f",
+        "sideBar.background": "#111c1f",
+        "editor.selectionForeground": "#ff0000",
+        "editor.background": "#111c1f",
+        "statusBar.background": "#68217a",
+        "statusBar.debuggingBackground": "#00ACC6",
+        "statusBar.debuggingForeground": "#111c1f",
+        "editorRuler.foreground": "#ff0000",
+        "editorCursor.foreground": "#5eff00",
+        "editorLineNumber.foreground": "#222f3b",
+        "editorLineNumber.activeForeground": "#5eff00",
+        "tab.inactiveBackground": "#222f3b",
+        "editorGroupHeader.tabsBackground": "#222f3b",
+        "tab.hoverBackground": "#111c1f",
+        "scrollbarSlider.activeBackground": "#5eff00",
+        "scrollbarSlider.background": "#111c1f",
+        "scrollbarSlider.hoverBackground": "#68217a"
+    },
+    "editor.cursorBlinking": "expand",
+    "editor.fontFamily": "'cascadia code', Consolas, 'Courier New', monospace",
+    "editor.minimap.scale": 3,
+    "editor.cursorSmoothCaretAnimation": true,
+    "editor.cursorWidth": 3,
+    "editor.fontLigatures": true,
+    "editor.formatOnSave": false,
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.editor.enablePreview": false,
+    "[java]": {
+        "editor.formatOnSave": false
+    }
+}

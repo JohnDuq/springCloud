@@ -51,7 +51,6 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 
 ### VisualStudioCode ###
-.vscode/*
 !.vscode/tasks.json
 *.code-workspace
 
