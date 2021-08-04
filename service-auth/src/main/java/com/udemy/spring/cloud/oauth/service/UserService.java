@@ -1,0 +1,64 @@
+package com.udemy.spring.cloud.oauth.service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.udemy.spring.cloud.commons.model.auth.User;
+import com.udemy.spring.cloud.oauth.client.IRoleClientFeign;
+import com.udemy.spring.cloud.oauth.client.IUserClientFeign;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+@Service
+public class UserService implements UserDetailsService {
+
+    private Logger log = LoggerFactory.getLogger(UserService.class);
+
+    private static final String ENABLE = "ENABLE";
+    private static final boolean ACCOUNT_NON_EXPIRED = true;
+    private static final boolean CREDENTIALS_NON_EXPIRED = true;
+    private static final boolean ACCOUNT_NON_LOCKED = true;
+
+    @Autowired
+    private IUserClientFeign iUserClientFeign;
+    @Autowired
+    private IRoleClientFeign iRoleClientFeign;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = iUserClientFeign.findByUsername(username);
+
+        if (user == null) {
+            String errorMessage = "User doesnt exist:" + username;
+            log.error(errorMessage);
+            throw new UsernameNotFoundException(errorMessage);
+        }
+
+        List<GrantedAuthority> authorities = iRoleClientFeign
+                .getRolesByUser(username)
+                .stream()
+                .map(role -> new SimpleGrantedAuthority(role.getName()))
+                .peek(authoritie -> log.info("Role: " + authoritie.getAuthority()))
+                .collect(Collectors.toList());
+
+        log.info("User authenticated:" + username);
+
+        return new org.springframework.security.core.userdetails.User(
+                username, 
+                user.getPassword(),
+                ENABLE.equals(user.getStatus()), 
+                ACCOUNT_NON_EXPIRED, 
+                CREDENTIALS_NON_EXPIRED, 
+                ACCOUNT_NON_LOCKED,
+                authorities);
+    }
+
+}

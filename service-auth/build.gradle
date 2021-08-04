@@ -1,0 +1,53 @@
+plugins {
+	id 'org.springframework.boot' version '2.5.3'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'com.udemy.spring.cloud.oauth'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+}
+
+ext {
+	set('springCloudVersion', "2020.0.3")
+}
+
+dependencies {
+	// Libreria local
+	implementation('com.udemy.spring.cloud.commons:commons-auth:0.0.1-SNAPSHOT') {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-data-jpa'
+    }
+	// Librerias para OAuth2
+	implementation 'org.springframework.security.oauth:spring-security-oauth2:2.3.8.RELEASE'
+	implementation 'org.springframework.security:spring-security-jwt:1.1.1.RELEASE'
+	implementation 'org.glassfish.jaxb:jaxb-runtime'
+	// FIN Librerias para OAuth2
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+
+test {
+	useJUnitPlatform()
+}
