@@ -35,5 +35,6 @@
     "workbench.editor.enablePreview": false,
     "[java]": {
         "editor.formatOnSave": false
-    }
+    },
+    "java.configuration.updateBuildConfiguration": "automatic"
 }

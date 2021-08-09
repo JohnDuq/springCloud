@@ -4,8 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.udemy.spring.cloud.commons.model.auth.User;
-import com.udemy.spring.cloud.oauth.client.IRoleClientFeign;
-import com.udemy.spring.cloud.oauth.client.IUserClientFeign;
+import com.udemy.spring.cloud.oauth.client.IUserCloudClientFeign;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,13 +27,11 @@ public class UserService implements UserDetailsService {
     private static final boolean ACCOUNT_NON_LOCKED = true;
 
     @Autowired
-    private IUserClientFeign iUserClientFeign;
-    @Autowired
-    private IRoleClientFeign iRoleClientFeign;
+    private IUserCloudClientFeign iUserCloudClientFeign;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = iUserClientFeign.findByUsername(username);
+        User user = iUserCloudClientFeign.findByUsername(username);
 
         if (user == null) {
             String errorMessage = "User doesnt exist:" + username;
@@ -42,7 +39,7 @@ public class UserService implements UserDetailsService {
             throw new UsernameNotFoundException(errorMessage);
         }
 
-        List<GrantedAuthority> authorities = iRoleClientFeign
+        List<GrantedAuthority> authorities = iUserCloudClientFeign
                 .getRolesByUser(username)
                 .stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName()))

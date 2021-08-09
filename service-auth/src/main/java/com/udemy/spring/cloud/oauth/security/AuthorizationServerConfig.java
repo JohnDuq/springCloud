@@ -28,13 +28,15 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         security.tokenKeyAccess("permitAll()") // Permite a todos los consumidores acceder a la ruta POST /oauth/token
                 .checkTokenAccess("isAuthenticated()"); // Permite validar que el consumidor este autenticado
+                                                        // Header Authorization Basic clientId:clientSecret
     }
 
     // Configuracion para autenticar un consumidor y los usuarios del micro
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory().withClient("frontendapp") // Definen los consumidores
-                .secret(bCryptPasswordEncoder.encode("secret")) // Define el secreto de autenticacion para el consumidor
+        clients.inMemory().withClient("consumer-app") // Definen los consumidores
+                .secret(bCryptPasswordEncoder.encode("consumer-app-password")) // Define el secreto de autenticacion
+                                                                               // para el consumidor
                 .scopes("read", "write") // Define el alcance del consumidor
                 .authorizedGrantTypes("password", "refresh_token") // Define el metodo de autenticacion de los usuarios
                                                                    // en el consumidor, refresh token renueva el token

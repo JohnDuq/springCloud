@@ -8,7 +8,8 @@
             "projectName": "config-server",
             "args": "",
             "vmArgs": "",
-            "console": "internalConsole"
+            "console": "internalConsole",
+            "internalConsoleOptions": "openOnSessionStart"
         },
         {
             "type": "java",
@@ -18,7 +19,8 @@
             "projectName": "eureka-server",
             "args": "",
             "vmArgs": "",
-            "console": "internalConsole"
+            "console": "internalConsole",
+            "internalConsoleOptions": "openOnSessionStart"
         },
         {
             "type": "java",
@@ -29,7 +31,8 @@
             "projectName": "service-client",
             "args": "",
             "vmArgs": "",
-            "console": "internalConsole"
+            "console": "internalConsole",
+            "internalConsoleOptions": "openOnSessionStart"
         },
         {
             "type": "java",
@@ -40,7 +43,8 @@
             "projectName": "service-producer",
             "args": "",
             "vmArgs": "",
-            "console": "internalConsole"
+            "console": "internalConsole",
+            "internalConsoleOptions": "openOnSessionStart"
         },
         {
             "type": "java",
@@ -51,7 +55,8 @@
             "projectName": "service-producer",
             "args": "",
             "vmArgs": "-Dserver.port=8001",
-            "console": "internalConsole"
+            "console": "internalConsole",
+            "internalConsoleOptions": "openOnSessionStart"
         },
         {
             "type": "java",
@@ -62,7 +67,8 @@
             "projectName": "zuul-gateway",
             "args": "",
             "vmArgs": "",
-            "console": "internalConsole"
+            "console": "internalConsole",
+            "internalConsoleOptions": "openOnSessionStart"
         },
         {
             "type": "java",
@@ -72,7 +78,19 @@
             "projectName": "user-cloud",
             "args": "",
             "vmArgs": "",
-            "console": "internalConsole"
-        }
+            "console": "internalConsole",
+            "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
+            "type": "java",
+            "name": "service-auth 9100",
+            "request": "launch",
+            "mainClass": "com.udemy.spring.cloud.oauth.ServiceAuthApplication",
+            "projectName": "service-auth",
+            "args": "",
+            "vmArgs": "",
+            "console": "internalConsole",
+            "internalConsoleOptions": "openOnSessionStart"
+        },
     ]
 }
