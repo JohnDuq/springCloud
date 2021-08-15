@@ -167,7 +167,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://localhost:8090/gateway/api/user/user-dao/search/find-id?id=1",
+											"raw": "http://localhost:8090/gateway/api/user/user-dao/search/find-id?id=2",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -184,7 +184,7 @@
 											"query": [
 												{
 													"key": "id",
-													"value": "1"
+													"value": "2"
 												}
 											]
 										}
@@ -301,6 +301,68 @@
 												"api",
 												"user",
 												"user-role-dao"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "security",
+							"item": [
+								{
+									"name": "oauth token",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "consumer-app-password",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "consumer-app",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "username",
+													"value": "ROOT",
+													"type": "text"
+												},
+												{
+													"key": "password",
+													"value": "12345",
+													"type": "text"
+												},
+												{
+													"key": "grant_type",
+													"value": "password",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "http://localhost:8090/gateway/api/security/oauth-token",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8090",
+											"path": [
+												"gateway",
+												"api",
+												"security",
+												"oauth-token"
 											]
 										}
 									},
@@ -751,6 +813,98 @@
 		{
 			"name": "Producer",
 			"item": []
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "oauth-token",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "consumer-app-password",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "consumer-app",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "ROOT",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:9100/oauth-token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9100",
+							"path": [
+								"oauth-token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Email",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"emailId\":\"jonathan.duque.ramos@gmail.com\",\r\n    \"password\":\"12345\",\r\n    \"firstName\": \"firstName\",\r\n    \"lastName\": \"lastName\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8989/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8989",
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
