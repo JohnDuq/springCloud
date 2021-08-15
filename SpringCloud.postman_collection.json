@@ -883,7 +883,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"emailId\":\"jonathan.duque.ramos@gmail.com\",\r\n    \"password\":\"12345\",\r\n    \"firstName\": \"firstName\",\r\n    \"lastName\": \"lastName\"\r\n}",
+							"raw": "{\r\n    \"email\":\"jonathan.duque.ramos@gmail.com\",\r\n    \"firstName\": \"firstName\",\r\n    \"lastName\": \"lastName\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -891,14 +891,34 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8989/register",
+							"raw": "http://localhost:8989/registerEmailAccount",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8989",
 							"path": [
-								"register"
+								"registerEmailAccount"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "confirmEmailAccount",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8989/confirmEmailAccount/ad3e1969-9085-4553-a854-4a9e0eaab7f6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8989",
+							"path": [
+								"confirmEmailAccount",
+								"ad3e1969-9085-4553-a854-4a9e0eaab7f6"
 							]
 						}
 					},

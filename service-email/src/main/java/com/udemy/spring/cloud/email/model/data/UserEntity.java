@@ -25,8 +25,6 @@ public class UserEntity {
 
     private String emailId;
 
-    private String password;
-
     @Column(name = "first_name")
     private String firstName;
 
