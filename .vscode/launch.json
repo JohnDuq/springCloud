@@ -92,5 +92,17 @@
             "console": "internalConsole",
             "internalConsoleOptions": "openOnSessionStart"
         },
+        {
+            "type": "java",
+            "name": "service-email 8989",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.udemy.spring.cloud.email.ServiceEmailApplication",
+            "projectName": "service-email",
+            "args": "",
+            "vmArgs": "",
+            "console": "internalConsole",
+            "internalConsoleOptions": "openOnSessionStart"
+        }
     ]
 }
