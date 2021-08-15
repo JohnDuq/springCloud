@@ -66,8 +66,10 @@ public class EmailService implements IEmailService {
             mimeMessageHelper.setTo(userEntity.getEmailId());
             mimeMessageHelper.setSubject("Complete Registration!");
             String linkButtonHtml = "<a href=\"http://localhost:8989" + ServiceMapping.CONFIRM_EMAIL_ACCOUNT_VIEW + "/"
-                    + confirmationToken.getConfirmationToken() + "\">HERE</a>";
-            mimeMessageHelper.setText("To confirm your account, please click here : " + linkButtonHtml, true);
+                    + confirmationToken.getConfirmationToken() + "\">HERE</a><br>";
+            String tokenValue = "Token value:" + confirmationToken.getConfirmationToken();
+            mimeMessageHelper.setText("To confirm your account, please click here : " + linkButtonHtml + tokenValue,
+                    true);
 
             sendEmail(mimeMessage);
 

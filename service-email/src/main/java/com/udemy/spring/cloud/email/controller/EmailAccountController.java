@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -29,8 +30,8 @@ public class EmailAccountController {
         return iEmailService.registerEmailAccount(registerEmailAccountReq);
     }
 
-    @PostMapping(value = ServiceMapping.CONFIRM_EMAIL_ACCOUNT_TOKEN)
-    public ConfirmEmailAccountRes confirmUserAccount(@PathVariable("token") String unconfirmedToken) {
+    @GetMapping(value = ServiceMapping.CONFIRM_EMAIL_ACCOUNT)
+    public ConfirmEmailAccountRes confirmUserAccount(@RequestParam(value = "token") String unconfirmedToken) {
         return iEmailService.confirmEmailAccount(unconfirmedToken);
     }
 
