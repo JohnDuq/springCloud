@@ -13,6 +13,7 @@ import com.udemy.spring.cloud.email.model.data.UserEntity;
 import com.udemy.spring.cloud.email.model.database.ConfirmationTokenRepository;
 import com.udemy.spring.cloud.email.model.database.UserRepository;
 import com.udemy.spring.cloud.email.service.IEmailService;
+import com.udemy.spring.cloud.email.service.ITemplateService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -28,6 +29,8 @@ public class EmailService implements IEmailService {
     private UserRepository userRepository;
     @Autowired
     private ConfirmationTokenRepository confirmationTokenRepository;
+    @Autowired
+    private ITemplateService iTemplateService;
 
     private JavaMailSender javaMailSender;
 
@@ -65,11 +68,17 @@ public class EmailService implements IEmailService {
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
             mimeMessageHelper.setTo(userEntity.getEmailId());
             mimeMessageHelper.setSubject("Complete Registration!");
-            String linkButtonHtml = "<a href=\"http://localhost:8989" + ServiceMapping.CONFIRM_EMAIL_ACCOUNT_VIEW + "/"
-                    + confirmationToken.getConfirmationToken() + "\">HERE</a><br>";
-            String tokenValue = "Token value:" + confirmationToken.getConfirmationToken();
-            mimeMessageHelper.setText("To confirm your account, please click here : " + linkButtonHtml + tokenValue,
-                    true);
+            // String linkButtonHtml = "<a href=\"http://localhost:8989" +
+            // ServiceMapping.CONFIRM_EMAIL_ACCOUNT_VIEW + "/"
+            // + confirmationToken.getConfirmationToken() + "\">HERE</a><br>";
+            // String tokenValue = "Token value:" +
+            // confirmationToken.getConfirmationToken();
+            // mimeMessageHelper.setText("To confirm your account, please click here : " +
+            // linkButtonHtml + tokenValue,
+            // true);
+
+            mimeMessageHelper.setText(iTemplateService.generateHtmlVerify(registerEmailAccountReq.getFirstName(),
+                    registerEmailAccountReq.getLastName(), confirmationToken.getConfirmationToken()), true);
 
             sendEmail(mimeMessage);
 

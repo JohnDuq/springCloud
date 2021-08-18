@@ -1,7 +1,6 @@
 package com.udemy.spring.cloud.email.model.data;
 
 import java.util.Date;
-import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +13,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.apache.commons.lang3.RandomStringUtils;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -47,7 +48,7 @@ public class ConfirmationToken {
     public ConfirmationToken(UserEntity userEntity) {
         this.userEntity = userEntity;
         createdDate = new Date();
-        confirmationToken = UUID.randomUUID().toString();
+        confirmationToken = RandomStringUtils.randomAlphabetic(15);
     }
 
 }
