@@ -16,7 +16,9 @@ import javax.persistence.TemporalType;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -25,6 +27,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class ConfirmationToken {
 
     @Id
@@ -38,17 +42,11 @@ public class ConfirmationToken {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
 
-    @OneToOne(targetEntity = UserEntity.class, fetch = FetchType.EAGER)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date confirmationDate;
+
+    @OneToOne(targetEntity = UserEntity.class, fetch = FetchType.LAZY)
     @JoinColumn(nullable = false, name = "user_id")
     private UserEntity userEntity;
-
-    public ConfirmationToken() {
-    }
-
-    public ConfirmationToken(UserEntity userEntity) {
-        this.userEntity = userEntity;
-        createdDate = new Date();
-        confirmationToken = RandomStringUtils.randomAlphabetic(15);
-    }
 
 }

@@ -36,7 +36,8 @@ public class EmailAccountController {
     }
 
     @GetMapping(value = ServiceMapping.CONFIRM_EMAIL_ACCOUNT_VIEW_TOKEN)
-    public ModelAndView confirmUserAccountView(ModelAndView modelAndView, @PathVariable("token") String unconfirmedToken) {
+    public ModelAndView confirmUserAccountView(ModelAndView modelAndView,
+            @PathVariable("token") String unconfirmedToken) {
         ConfirmEmailAccountRes confirmEmailAccountRes = iEmailService.confirmEmailAccount(unconfirmedToken);
         if (EmailAccountStatus.CONFIRMED.equals(confirmEmailAccountRes.getStatus())) {
             modelAndView.addObject("message", confirmEmailAccountRes.getUserEntity().getEmailId());

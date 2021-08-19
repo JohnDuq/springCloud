@@ -1,10 +1,11 @@
 package com.udemy.spring.cloud.email.service.impl;
 
+import java.util.Date;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import com.udemy.spring.cloud.email.controller.common.EmailAccountStatus;
-import com.udemy.spring.cloud.email.controller.common.ServiceMapping;
 import com.udemy.spring.cloud.email.controller.model.request.RegisterEmailAccountReq;
 import com.udemy.spring.cloud.email.controller.model.response.ConfirmEmailAccountRes;
 import com.udemy.spring.cloud.email.controller.model.response.RegisterEmailAccountRes;
@@ -15,6 +16,7 @@ import com.udemy.spring.cloud.email.model.database.UserRepository;
 import com.udemy.spring.cloud.email.service.IEmailService;
 import com.udemy.spring.cloud.email.service.ITemplateService;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -45,11 +47,11 @@ public class EmailService implements IEmailService {
 
     public RegisterEmailAccountRes registerEmailAccount(RegisterEmailAccountReq registerEmailAccountReq)
             throws MessagingException {
-        RegisterEmailAccountRes registerEmailAccountReqRes = new RegisterEmailAccountRes();
+        RegisterEmailAccountRes registerEmailAccountRes = new RegisterEmailAccountRes();
         UserEntity existingUser = userRepository.findByEmailIdIgnoreCase(registerEmailAccountReq.getEmail());
         if (existingUser != null) {
-            registerEmailAccountReqRes.setStatus("ERROR");
-            registerEmailAccountReqRes.setMessage("Email already exist");
+            registerEmailAccountRes.setStatus("ERROR");
+            registerEmailAccountRes.setMessage("Email already exist");
         } else {
 
             UserEntity userEntity = new UserEntity();
@@ -60,7 +62,10 @@ public class EmailService implements IEmailService {
 
             userRepository.save(userEntity);
 
-            ConfirmationToken confirmationToken = new ConfirmationToken(userEntity);
+            ConfirmationToken confirmationToken = new ConfirmationToken();
+            confirmationToken.setCreatedDate(new Date());
+            confirmationToken.setUserEntity(userEntity);
+            confirmationToken.setConfirmationToken(RandomStringUtils.randomAlphabetic(15));
 
             confirmationTokenRepository.save(confirmationToken);
 
@@ -68,36 +73,33 @@ public class EmailService implements IEmailService {
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
             mimeMessageHelper.setTo(userEntity.getEmailId());
             mimeMessageHelper.setSubject("Complete Registration!");
-            // String linkButtonHtml = "<a href=\"http://localhost:8989" +
-            // ServiceMapping.CONFIRM_EMAIL_ACCOUNT_VIEW + "/"
-            // + confirmationToken.getConfirmationToken() + "\">HERE</a><br>";
-            // String tokenValue = "Token value:" +
-            // confirmationToken.getConfirmationToken();
-            // mimeMessageHelper.setText("To confirm your account, please click here : " +
-            // linkButtonHtml + tokenValue,
-            // true);
-
-            mimeMessageHelper.setText(iTemplateService.generateHtmlVerify(registerEmailAccountReq.getFirstName(),
-                    registerEmailAccountReq.getLastName(), confirmationToken.getConfirmationToken()), true);
+            mimeMessageHelper.setText(iTemplateService.generateHtmlVerify(registerEmailAccountReq,
+                    confirmationToken.getConfirmationToken()), true);
 
             sendEmail(mimeMessage);
 
-            registerEmailAccountReqRes.setStatus("ok");
+            registerEmailAccountRes.setStatus("ok");
 
         }
-        registerEmailAccountReqRes.setRegisterEmailAccountReq(registerEmailAccountReq);
-        return registerEmailAccountReqRes;
+        registerEmailAccountRes.setRegisterEmailAccountReq(registerEmailAccountReq);
+        return registerEmailAccountRes;
     }
 
     public ConfirmEmailAccountRes confirmEmailAccount(String unconfirmedToken) {
         ConfirmEmailAccountRes confirmEmailAccountRes = new ConfirmEmailAccountRes();
-        ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(unconfirmedToken);
-        if (token != null) {
-            UserEntity userEntity = userRepository.findByEmailIdIgnoreCase(token.getUserEntity().getEmailId());
+        ConfirmationToken confirmationToken = confirmationTokenRepository.findByConfirmationToken(unconfirmedToken);
+        if (confirmationToken != null) {
+            UserEntity userEntity = userRepository
+                    .findByEmailIdIgnoreCase(confirmationToken.getUserEntity().getEmailId());
             userEntity.setEnabled(true);
             userRepository.save(userEntity);
+
+            confirmationToken.setConfirmationDate(new Date());
+            confirmationTokenRepository.save(confirmationToken);
+
             confirmEmailAccountRes.setStatus(EmailAccountStatus.CONFIRMED);
             confirmEmailAccountRes.setUserEntity(userEntity);
+
         } else {
             confirmEmailAccountRes.setStatus(EmailAccountStatus.NOT_CONFIRMED);
             confirmEmailAccountRes.setMessage("The token is invalid");
