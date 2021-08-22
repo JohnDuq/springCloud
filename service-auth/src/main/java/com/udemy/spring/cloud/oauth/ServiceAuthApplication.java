@@ -24,8 +24,7 @@ public class ServiceAuthApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		String password = "12345";
 		for (int i = 0; i < 4; i++) {
-			String passwordBCrypt = bCryptPasswordEncoder.encode(password);
-			System.out.println(passwordBCrypt);
+			System.out.println(bCryptPasswordEncoder.encode(password));
 		}
 	}
 
