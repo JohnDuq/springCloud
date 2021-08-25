@@ -19,7 +19,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserService implements UserDetailsService, IUserService {
 
     private Logger log = LoggerFactory.getLogger(UserService.class);
 
@@ -33,7 +33,7 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = iUserCloudClientFeign.findByUsername(username);
+        User user = findByUsername(username);
 
         if (user == null) {
             String errorMessage = "User doesnt exist:" + username;
@@ -60,6 +60,11 @@ public class UserService implements UserDetailsService {
                 CREDENTIALS_NON_EXPIRED, 
                 ACCOUNT_NON_LOCKED,
                 authorities);
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        return iUserCloudClientFeign.findByUsername(username);
     }
 
 }

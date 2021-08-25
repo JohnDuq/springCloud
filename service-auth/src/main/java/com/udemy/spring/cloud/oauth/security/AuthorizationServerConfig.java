@@ -1,5 +1,7 @@
 package com.udemy.spring.cloud.oauth.security;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +12,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
@@ -22,6 +25,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Autowired
     private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private InfoAddToken infoAddToken;
 
     // Configuracion para acceso al microservicio service-auth
     @Override
@@ -50,9 +56,14 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+        // Clase para combinar la información de los tokens
+        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(infoAddToken, accessTokenConverter()));
+
         endpoints.authenticationManager(authenticationManager)// Define la interfaz de autenticacion de usuario
                 .tokenStore(tokenStore())// Define el lugar de almacenamiento del token
-                .accessTokenConverter(accessTokenConverter());// Define el token converter
+                .accessTokenConverter(accessTokenConverter())// Define el token converter
+                .tokenEnhancer(tokenEnhancerChain);
     }
 
     // Define el lugar de almacenamiento del token
