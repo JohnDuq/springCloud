@@ -1,9 +1,7 @@
 package com.udemy.spring.cloud.oauth.client;
 
-import java.util.List;
-
-import com.udemy.spring.cloud.commons.model.auth.Role;
 import com.udemy.spring.cloud.commons.model.auth.User;
+import com.udemy.spring.cloud.oauth.model.Roles;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +14,6 @@ public interface IUserCloudClientFeign {
     public User findByUsername(@RequestParam("username") String username);
 
     @GetMapping("/role-dao/search/getRolesByUser")
-    public List<Role> getRolesByUser(@RequestParam("username") String username);
+    public Roles getRolesByUser(@RequestParam("username") String username);
 
 }

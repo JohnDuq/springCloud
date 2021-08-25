@@ -825,12 +825,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "consumer-app-password",
+									"value": "54321",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "consumer-app",
+									"value": "consumerApp",
 									"type": "string"
 								}
 							]
@@ -858,18 +858,113 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:9100/oauth-token",
+							"raw": "http://localhost:9100/oauth/token",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "9100",
 							"path": [
-								"oauth-token"
+								"oauth",
+								"token"
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "oauth-token",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "username",
+											"value": "ROOT",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "12345",
+											"type": "text"
+										},
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:9100/oauth-token",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9100",
+									"path": [
+										"oauth-token"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Set-Cookie",
+									"value": "JSESSIONID=57349B9FDC79D1722727FEE940297E51; Path=/; HttpOnly"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "WWW-Authenticate",
+									"value": "Basic realm=\"Realm\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "0"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Aug 2021 17:34:24 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
 				}
 			]
 		},
@@ -883,7 +978,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"jonathan.duque.ramos@gmail.com\",\r\n    \"firstName\": \"firstName\",\r\n    \"lastName\": \"lastName\"\r\n}",
+							"raw": "{\r\n    \"email\":\"{{$randomEmail}}\",\r\n    \"firstName\": \"{{$randomFirstName}}\",\r\n    \"lastName\": \"{{$randomLastName}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -907,18 +1002,96 @@
 				{
 					"name": "confirmEmailAccount",
 					"request": {
-						"method": "POST",
+						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8989/confirmEmailAccount/ad3e1969-9085-4553-a854-4a9e0eaab7f6",
+							"raw": "http://localhost:8989/confirmEmailAccount?token=155bcb63-2f44-404a-a62d-45b8330b8058",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8989",
 							"path": [
-								"confirmEmailAccount",
-								"ad3e1969-9085-4553-a854-4a9e0eaab7f6"
+								"confirmEmailAccount"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "155bcb63-2f44-404a-a62d-45b8330b8058"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "getRolesByUser",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "ROOT",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:59550/role-dao/search/getRolesByUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "59550",
+							"path": [
+								"role-dao",
+								"search",
+								"getRolesByUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findByUsername",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "ROOT",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:59550/user-dao/search/findByUsername",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "59550",
+							"path": [
+								"user-dao",
+								"search",
+								"findByUsername"
 							]
 						}
 					},

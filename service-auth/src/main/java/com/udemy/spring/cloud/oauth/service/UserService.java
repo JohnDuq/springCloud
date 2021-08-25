@@ -3,8 +3,10 @@ package com.udemy.spring.cloud.oauth.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.udemy.spring.cloud.commons.model.auth.Role;
 import com.udemy.spring.cloud.commons.model.auth.User;
 import com.udemy.spring.cloud.oauth.client.IUserCloudClientFeign;
+import com.udemy.spring.cloud.oauth.model.Roles;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,8 +41,10 @@ public class UserService implements UserDetailsService {
             throw new UsernameNotFoundException(errorMessage);
         }
 
-        List<GrantedAuthority> authorities = iUserCloudClientFeign
-                .getRolesByUser(username)
+        Roles roles = iUserCloudClientFeign.getRolesByUser(username);
+        List<Role> lRoles = roles.get_embedded().getRoles();
+
+        List<GrantedAuthority> authorities = lRoles
                 .stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .peek(authoritie -> log.info("Role: " + authoritie.getAuthority()))
