@@ -18,6 +18,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import feign.FeignException;
+
 @Service
 public class UserService implements UserDetailsService, IUserService {
 
@@ -33,33 +35,33 @@ public class UserService implements UserDetailsService, IUserService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = findByUsername(username);
+        try {
+            User user = findByUsername(username);
 
-        if (user == null) {
+            Roles roles = iUserCloudClientFeign.getRolesByUser(username);
+            List<Role> lRoles = roles.get_embedded().getRoles();
+
+            List<GrantedAuthority> authorities = lRoles
+                    .stream()
+                    .map(role -> new SimpleGrantedAuthority(role.getName()))
+                    .peek(authoritie -> log.info("Role: " + authoritie.getAuthority()))
+                    .collect(Collectors.toList());
+
+            log.info("User authenticated:" + username);
+
+            return new org.springframework.security.core.userdetails.User(
+                    username, 
+                    user.getPassword(),
+                    ENABLE.equals(user.getStatus()), 
+                    ACCOUNT_NON_EXPIRED, 
+                    CREDENTIALS_NON_EXPIRED, 
+                    ACCOUNT_NON_LOCKED,
+                    authorities);
+        } catch (FeignException fe) {
             String errorMessage = "User doesnt exist:" + username;
             log.error(errorMessage);
             throw new UsernameNotFoundException(errorMessage);
         }
-
-        Roles roles = iUserCloudClientFeign.getRolesByUser(username);
-        List<Role> lRoles = roles.get_embedded().getRoles();
-
-        List<GrantedAuthority> authorities = lRoles
-                .stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName()))
-                .peek(authoritie -> log.info("Role: " + authoritie.getAuthority()))
-                .collect(Collectors.toList());
-
-        log.info("User authenticated:" + username);
-
-        return new org.springframework.security.core.userdetails.User(
-                username, 
-                user.getPassword(),
-                ENABLE.equals(user.getStatus()), 
-                ACCOUNT_NON_EXPIRED, 
-                CREDENTIALS_NON_EXPIRED, 
-                ACCOUNT_NON_LOCKED,
-                authorities);
     }
 
     @Override
