@@ -67,4 +67,9 @@ public class UserService implements UserDetailsService, IUserService {
         return iUserCloudClientFeign.findByUsername(username);
     }
 
+    @Override
+    public User update(User user, Long idUser) {
+        return iUserCloudClientFeign.update(user, idUser);
+    }
+
 }

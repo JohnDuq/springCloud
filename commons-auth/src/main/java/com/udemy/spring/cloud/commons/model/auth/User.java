@@ -32,6 +32,8 @@ public class User implements Serializable {
     private String lastName;
     @Column(nullable = false, unique = true, length = 100)
     private String email;
+    @Column
+    private Integer loginTry;
     @Column(nullable = false)
     private String createFor;
     @Column(name = "create_at")
@@ -129,6 +131,14 @@ public class User implements Serializable {
 
     public void setUpdateAt(Date updateAt) {
         this.updateAt = updateAt;
+    }
+
+    public Integer getLoginTry() {
+        return loginTry;
+    }
+
+    public void setLoginTry(Integer loginTry) {
+        this.loginTry = loginTry;
     }
 
 }
