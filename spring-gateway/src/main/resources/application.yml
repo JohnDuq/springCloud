@@ -13,4 +13,4 @@ spring:
         predicates:
           - Path=/gateway/api/client/**
         filters:
-          - StripPrefix=2
+          - StripPrefix=3
