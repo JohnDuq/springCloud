@@ -43,8 +43,7 @@ public class InventoryRestController {
     private String serverPort;
 
     @Autowired
-    // sirve para instanciar una implementación especifica de la interfaz
-    // @Qualifier("InventoryServiceRestTemplateImpl")
+    // @Qualifier("InventoryServiceRestTemplateImpl") // sirve para instanciar una implementación especifica de la interfaz
     private IInventoryService iInventoryService;
 
     @GetMapping("/findAll")

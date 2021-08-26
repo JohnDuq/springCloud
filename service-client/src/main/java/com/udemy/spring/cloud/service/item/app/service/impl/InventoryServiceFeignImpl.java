@@ -21,8 +21,10 @@ public class InventoryServiceFeignImpl implements IInventoryService {
 
     @Override
     public List<Inventory> findAll() {
-        return iServiceProducerFeignClient.findAll().stream().map(item -> new Inventory(item, 1))
-                .collect(Collectors.toList());
+        return iServiceProducerFeignClient.findAll()
+            .stream()
+            .map(item -> new Inventory(item, 1))
+            .collect(Collectors.toList());
     }
 
     @Override

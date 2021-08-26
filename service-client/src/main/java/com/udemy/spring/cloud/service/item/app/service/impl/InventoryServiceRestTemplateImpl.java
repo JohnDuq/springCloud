@@ -26,7 +26,9 @@ public class InventoryServiceRestTemplateImpl implements IInventoryService {
     @Override
     public List<Inventory> findAll() {
         List<Item> lItems = Arrays.asList(restTemplate.getForObject("http://service-producer/findAll", Item[].class));
-        return lItems.stream().map(item -> new Inventory(item, 1)).collect(Collectors.toList());
+        return lItems.stream()
+            .map(item -> new Inventory(item, 1))
+            .collect(Collectors.toList());
     }
 
     @Override
