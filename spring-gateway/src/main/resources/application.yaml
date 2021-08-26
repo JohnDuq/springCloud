@@ -1,0 +1,28 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: service-producer
+        uri: lb://service-producer
+        predicates:
+        - Path=/gateway/api/producer/**
+        filters:
+        - StripPrefix=3
+      - id: service-client
+        uri: lb://service-client
+        predicates:
+        - Path=/gateway/api/client/**
+        filters:
+        - StripPrefix=3
+      # - id: user-cloud
+      #   uri: lb://user-cloud
+      #   predicates:
+      #   - Path=/gateway/api/user/**
+      #   filters:
+      #   - StripPrefix=3
+      # - id: service-auth
+      #   uri: lb://service-auth
+      #   predicates:
+      #   - Path=/gateway/api/security/**
+      #   filters:
+      #   - StripPrefix=3
