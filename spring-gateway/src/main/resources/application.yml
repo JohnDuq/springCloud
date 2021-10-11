@@ -1,16 +1,29 @@
-# spring:
-#   cloud:
-#     gateway:
-#       routes:
-#       - id: service-producer
-#         uri: lb://service-producer
-#         predicates:
-#           - Path=/gateway/api/producer/**
-#         filters:
-#           - StripPrefix=3
-#       - id: service-client
-#         uri: lb://service-client
-#         predicates:
-#           - Path=/gateway/api/client/**
-#         filters:
-#           - StripPrefix=3
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: service-producer
+        uri: lb://service-producer
+        predicates:
+          - Path=/gateway/api/producer/**
+        filters:
+          - StripPrefix=3 # Define la cantida de paths que pertenecen al gateway
+          - ExampleCookieName=Custom Message, user, jduquer
+          # - name: Specific # Prefijo de la clase Specific/GatewayFilterFactory.java
+          #   args: # Datos que van en la sub clase Cookie de la clase SpecificGatewayFilterFactory.java
+          #     message: Custom Message # valor para atributo
+          #     name: user # valor para atributo
+          #     value: jduquer # valor para atributo sin espacios
+      - id: service-client
+        uri: lb://service-client
+        predicates:
+          - Path=/gateway/api/client/**
+        filters:
+          - StripPrefix=3
+          - AddRequestHeader=token-request, 123456 # Agrega un header a la petición
+          - AddRequestParameter=nameRequestParameter, jonathan # Agrega un parametro a la petición
+          - AddResponseHeader=token-response, 987654 # Agrega un header a la respuesta
+          - SetResponseHeader=Content-Type, text/plain # Actualiza un header existente a la respuesta
+          # Listado de filtros
+          # https://spring.io/projects/spring-cloud-gateway#learn
+          # Current -> Reference Doc. -> Route Predicate Factories
