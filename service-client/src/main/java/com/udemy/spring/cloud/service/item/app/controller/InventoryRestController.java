@@ -49,8 +49,9 @@ public class InventoryRestController {
     private IInventoryService iInventoryService;
 
     @GetMapping("/findAll")
-    public List<Inventory> findAll(@RequestParam(name = "nameRequestParameter") String addRequestParameter,
-            @RequestHeader(name = "token-request") String tokenRequest) {
+    public List<Inventory> findAll(
+            @RequestParam(name = "nameRequestParameter", required = false) String addRequestParameter,
+            @RequestHeader(name = "token-request", required = false) String tokenRequest) {
         log.info(String.format("nameRequestParameter: %s", addRequestParameter));
         log.info(String.format("token-request: %s", tokenRequest));
         return iInventoryService.findAll();

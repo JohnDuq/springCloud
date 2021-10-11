@@ -459,8 +459,17 @@
 						{
 							"name": "findAll",
 							"request": {
+								"auth": {
+									"type": "noauth"
+								},
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "token",
+										"value": "",
+										"type": "text"
+									}
+								],
 								"url": {
 									"raw": "http://localhost:8090/gateway/api/client/findAll",
 									"protocol": "http",
@@ -642,7 +651,19 @@
 							"name": "findAll Items",
 							"request": {
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "token",
+										"value": "123456",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text",
+										"disabled": true
+									}
+								],
 								"url": {
 									"raw": "http://localhost:8090/gateway/api/producer/findAll",
 									"protocol": "http",
@@ -655,6 +676,13 @@
 										"api",
 										"producer",
 										"findAll"
+									],
+									"query": [
+										{
+											"key": "color",
+											"value": "",
+											"disabled": true
+										}
 									]
 								}
 							},
@@ -759,12 +787,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8002/findAll",
+							"raw": "http://localhost:8014/findAll",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8002",
+							"port": "8014",
 							"path": [
 								"findAll"
 							]
@@ -778,12 +806,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8002/findByIdAmount/1/4",
+							"raw": "http://localhost:8014/findByIdAmount/1/4",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8002",
+							"port": "8014",
 							"path": [
 								"findByIdAmount",
 								"1",
@@ -893,7 +921,27 @@
 		},
 		{
 			"name": "Producer",
-			"item": []
+			"item": [
+				{
+					"name": "findAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8001/findAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"findAll"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "auth",

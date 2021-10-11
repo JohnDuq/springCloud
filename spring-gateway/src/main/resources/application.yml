@@ -2,10 +2,18 @@ spring:
   cloud:
     gateway:
       routes:
-      - id: service-producer
-        uri: lb://service-producer
+      - id: service-producer # Identificador
+        uri: lb://service-producer # Nombre del microservicio
         predicates:
-          - Path=/gateway/api/producer/**
+          - Path=/gateway/api/producer/** # Prefijo que se antepone a las rutas del microservicio
+          # - Header= token, \d+ # Regla que obliga a que el token sea numerico
+          # - Header=Content-Type, application/json # Regla que obliga a que el Content-Type sea application/json
+          # - Method=GET, POST # Regla que obliga a que los metodos de las peticiones solo sean GET o POST
+          # - Query=color # Regla que obliga a que los query deban enviar un name=color, el valor no es obligatorio
+          # - Cookie=color, azul # Regla que obliga a que en las cookies deban enviar un name=color value=azul
+          # Listado de reglas
+          # https://spring.io/projects/spring-cloud-gateway#learn
+          # Current -> Reference Doc. -> Route Predicate Factories
         filters:
           - StripPrefix=3 # Define la cantida de paths que pertenecen al gateway
           - ExampleCookieName=Custom Message, user, jduquer
@@ -26,4 +34,4 @@ spring:
           - SetResponseHeader=Content-Type, text/plain # Actualiza un header existente a la respuesta
           # Listado de filtros
           # https://spring.io/projects/spring-cloud-gateway#learn
-          # Current -> Reference Doc. -> Route Predicate Factories
+          # Current -> Reference Doc. -> GatewayFilter Factories
