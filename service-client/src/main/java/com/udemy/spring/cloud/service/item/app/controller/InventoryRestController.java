@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
@@ -39,6 +40,9 @@ public class InventoryRestController {
     private static Logger log = LoggerFactory.getLogger(InventoryRestController.class);
 
     @Autowired
+    private CircuitBreakerFactory circuitBreakerFactory;
+
+    @Autowired
     private Environment env;
 
     @Value("${server.port}")
@@ -61,7 +65,11 @@ public class InventoryRestController {
     //@HystrixCommand(fallbackMethod = "alternativeMethod")
     @GetMapping("/findByIdAmount/{id}/{amount}")
     public Inventory findById(@PathVariable Long id, @PathVariable Integer amount) {
-        return iInventoryService.findById(id, amount);
+        return circuitBreakerFactory.create("myFirstCircuitBreaker")
+            .run(()-> 
+                iInventoryService.findById(id, amount), 
+                error -> alternativeMethod(id, amount));
+        // return iInventoryService.findById(id, amount); // circuit braker con histrix
     }
 
     public Inventory alternativeMethod(Long id, Integer amount) {
