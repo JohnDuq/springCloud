@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+//import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.udemy.spring.cloud.commons.model.data.Item;
 import com.udemy.spring.cloud.service.item.app.model.data.Inventory;
 import com.udemy.spring.cloud.service.item.app.service.IInventoryService;
@@ -58,7 +58,7 @@ public class InventoryRestController {
     }
 
     // Define que en caso de error invoca el metodo alternativeMethod
-    @HystrixCommand(fallbackMethod = "alternativeMethod")
+    //@HystrixCommand(fallbackMethod = "alternativeMethod")
     @GetMapping("/findByIdAmount/{id}/{amount}")
     public Inventory findById(@PathVariable Long id, @PathVariable Integer amount) {
         return iInventoryService.findById(id, amount);
