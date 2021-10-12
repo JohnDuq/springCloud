@@ -2,6 +2,8 @@ package com.udemy.spring.cloud.service.item.app;
 
 import java.time.Duration;
 
+import com.udemy.spring.cloud.service.item.app.common.CircuitName;
+
 import org.springframework.cloud.circuitbreaker.resilience4j.Resilience4JCircuitBreakerFactory;
 import org.springframework.cloud.circuitbreaker.resilience4j.Resilience4JConfigBuilder;
 import org.springframework.cloud.client.circuitbreaker.Customizer;
@@ -16,7 +18,6 @@ import io.github.resilience4j.timelimiter.TimeLimiterConfig;
 @Configuration
 public class AppConfig {
 
-    private String circuitBreakerNameExample = "myFirstCircuitBreakerResilience4j";
     private int slidingWindowSize = 10; // Rango de peticiones a medir
     private int failureRateThreshold = 50; // Porcentaje de fallo permitido para no abrir el circuito
     private int permittedNumberOfCallsInHalfOpenState = 5; // Numero permitido de peticiones en estado medio-abierto
@@ -35,7 +36,7 @@ public class AppConfig {
     @Bean
     public Customizer<Resilience4JCircuitBreakerFactory> buildCustomizerResilience4JCircuitBreakerFactory() {
         return factory -> factory.configureDefault(circuitBreakerName -> {
-            if (circuitBreakerNameExample.equals(circuitBreakerName)) {
+            if (CircuitName.MY_FIRST_CIRCUIT.equals(circuitBreakerName)) {
                 // Configuración de CircuitBreaker especifica 
                 // para el circuito con nombre 'myFirstCircuitBreakerResilience4j'
                 return new Resilience4JConfigBuilder(circuitBreakerName)

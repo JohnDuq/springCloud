@@ -6,6 +6,7 @@ import java.util.Map;
 
 //import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.udemy.spring.cloud.commons.model.data.Item;
+import com.udemy.spring.cloud.service.item.app.common.CircuitName;
 import com.udemy.spring.cloud.service.item.app.model.data.Inventory;
 import com.udemy.spring.cloud.service.item.app.service.IInventoryService;
 
@@ -65,7 +66,7 @@ public class InventoryRestController {
     //@HystrixCommand(fallbackMethod = "alternativeMethodHistrix")
     @GetMapping("/findByIdAmount/{id}/{amount}")
     public Inventory findById(@PathVariable Long id, @PathVariable Integer amount) {
-        return circuitBreakerFactory.create("myFirstCircuitBreakerResilience4j")
+        return circuitBreakerFactory.create(CircuitName.MY_FIRST_CIRCUIT)
             .run(()-> 
                 iInventoryService.findById(id, amount), 
                 error -> alternativeMethodResilience4j(error, id, amount)); // circuit braker con resilience4j
