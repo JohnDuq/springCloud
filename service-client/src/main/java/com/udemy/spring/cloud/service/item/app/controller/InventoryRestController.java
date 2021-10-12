@@ -84,7 +84,7 @@ public class InventoryRestController {
     }
 
     public Inventory alternativeMethodResilience4j(Throwable error, Long id, Integer amount) {
-        logger.error(error.getMessage());
+        logger.error(error.getLocalizedMessage());
         Inventory inventory = new Inventory();
         inventory.setAmount(amount);
         Item item = new Item();

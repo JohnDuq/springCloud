@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 import com.udemy.spring.cloud.commons.model.data.Item;
 import com.udemy.spring.cloud.service.producer.app.service.IItemService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -22,6 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class ItemRestController {
+
+    private static Logger logger = LoggerFactory.getLogger(ItemRestController.class);
 
     @Autowired
     private Environment environment;
@@ -47,9 +51,11 @@ public class ItemRestController {
         if (id.equals(10L)) {
             // Error simulation
             throw new IllegalStateException("Item not found");
-        } else if (id.equals(10L)) {
+        } else if (id.equals(2L)) {
             // Timeout simulation
-            TimeUnit.SECONDS.sleep(5L);
+            logger.info("TIME SLEEP INIT");
+            TimeUnit.SECONDS.sleep(2L);
+            logger.info("TIME SLEEP DONE");
         }
 
         Item item = iItemService.findById(id);

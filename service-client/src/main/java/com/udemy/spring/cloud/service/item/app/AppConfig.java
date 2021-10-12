@@ -18,8 +18,12 @@ public class AppConfig {
 
     private String circuitBreakerNameExample = "myFirstCircuitBreakerResilience4j";
     private int slidingWindowSize = 10; // Rango de peticiones a medir
-    private int failureRateThreshold = 5; // porcentaje de fallo permitido para no abrir el circuito
-    private Duration waitDurationInOpenState = Duration.ofSeconds(10l); // Tiempo de espera para cerrar de nuevo el circuito
+    private int failureRateThreshold = 50; // Porcentaje de fallo permitido para no abrir el circuito
+    private int permittedNumberOfCallsInHalfOpenState = 5; // Numero permitido de peticiones en estado medio-abierto
+    private int slowCallRateThreshold = 50; // Porcentaje permitido de llamadas con timeout
+    private Duration waitDurationOpenState = Duration.ofSeconds(10L); // Tiempo de espera para cerrar de nuevo el circuito
+    private Duration timeLimiterConfig = Duration.ofSeconds(10L); // (TIME OUT) Tiempo de espera del circuito
+    private Duration slowCallDurationThreshold = Duration.ofSeconds(7L); // Tiempo de llamado considerado lento para el circuito
 
     @Bean
     @LoadBalanced
@@ -39,13 +43,16 @@ public class AppConfig {
                         CircuitBreakerConfig.custom()
                             .slidingWindowSize(slidingWindowSize)
                             .failureRateThreshold(failureRateThreshold)
-                            .waitDurationInOpenState(waitDurationInOpenState)
+                            .waitDurationInOpenState(waitDurationOpenState)
+                            .permittedNumberOfCallsInHalfOpenState(permittedNumberOfCallsInHalfOpenState)
+                            .slowCallRateThreshold(slowCallRateThreshold)
+                            .slowCallDurationThreshold(slowCallDurationThreshold)
                             .build())
-                    .timeLimiterConfig(TimeLimiterConfig.ofDefaults())
+                    .timeLimiterConfig(TimeLimiterConfig.custom().timeoutDuration(timeLimiterConfig).build())
                     .build();
             } else {
                 // Configuración de CircuitBreaker por defecto
-                // slidingWindowSize=100, slidingWindowSize=50, waitDurationInOpenState=60 segundos
+                // slidingWindowSize=100, slidingWindowSize=50, waitDurationInOpenState=60 segundos, timeout=1 segundo
                 return new Resilience4JConfigBuilder(circuitBreakerName)
                     .circuitBreakerConfig(CircuitBreakerConfig.ofDefaults())
                     .build();
