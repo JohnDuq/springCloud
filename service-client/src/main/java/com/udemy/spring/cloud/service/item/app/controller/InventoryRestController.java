@@ -37,7 +37,7 @@ public class InventoryRestController {
     private static final String EMAIL_AUTOR_CONFIGURATION = "email.autor.configuration";
     private static final String NAME_AUTOR_CONFIGURATION = "name.autor.configuration";
 
-    private static Logger log = LoggerFactory.getLogger(InventoryRestController.class);
+    private static Logger logger = LoggerFactory.getLogger(InventoryRestController.class);
 
     @Autowired
     private CircuitBreakerFactory circuitBreakerFactory;
@@ -56,28 +56,40 @@ public class InventoryRestController {
     public List<Inventory> findAll(
             @RequestParam(name = "nameRequestParameter", required = false) String addRequestParameter,
             @RequestHeader(name = "token-request", required = false) String tokenRequest) {
-        log.info(String.format("nameRequestParameter: %s", addRequestParameter));
-        log.info(String.format("token-request: %s", tokenRequest));
+        logger.info(String.format("nameRequestParameter: %s", addRequestParameter));
+        logger.info(String.format("token-request: %s", tokenRequest));
         return iInventoryService.findAll();
     }
 
-    // Define que en caso de error invoca el metodo alternativeMethod
-    //@HystrixCommand(fallbackMethod = "alternativeMethod")
+    // Define que en caso de error invoca el metodo alternativeMethod  con circuit braker histrix
+    //@HystrixCommand(fallbackMethod = "alternativeMethodHistrix")
     @GetMapping("/findByIdAmount/{id}/{amount}")
     public Inventory findById(@PathVariable Long id, @PathVariable Integer amount) {
-        return circuitBreakerFactory.create("myFirstCircuitBreaker")
+        return circuitBreakerFactory.create("myFirstCircuitBreakerResilience4j")
             .run(()-> 
                 iInventoryService.findById(id, amount), 
-                error -> alternativeMethod(id, amount));
+                error -> alternativeMethodResilience4j(error, id, amount)); // circuit braker con resilience4j
         // return iInventoryService.findById(id, amount); // circuit braker con histrix
     }
 
-    public Inventory alternativeMethod(Long id, Integer amount) {
+    public Inventory alternativeMethodHistrix(Long id, Integer amount) {
         Inventory inventory = new Inventory();
         inventory.setAmount(amount);
         Item item = new Item();
         item.setId(id);
-        item.setName("Alternative Method");
+        item.setName("Alternative Method Histrix");
+        item.setPrice(500d);
+        inventory.setItem(item);
+        return inventory;
+    }
+
+    public Inventory alternativeMethodResilience4j(Throwable error, Long id, Integer amount) {
+        logger.error(error.getMessage());
+        Inventory inventory = new Inventory();
+        inventory.setAmount(amount);
+        Item item = new Item();
+        item.setId(id);
+        item.setName("Alternative Method Resilience4j");
         item.setPrice(500d);
         inventory.setItem(item);
         return inventory;
@@ -85,8 +97,8 @@ public class InventoryRestController {
 
     @GetMapping("/get-config")
     public ResponseEntity<?> getConfiguration(@Value("${text.configuration}") String textConfiguration) {
-        log.info(String.format("textConfiguration : %s", textConfiguration));
-        log.info(String.format("serverPort : %s", serverPort));
+        logger.info(String.format("textConfiguration : %s", textConfiguration));
+        logger.info(String.format("serverPort : %s", serverPort));
         Map<String, String> json = new HashMap<>();
         json.put("text.configuration", textConfiguration);
         json.put("server.port", serverPort);

@@ -48,7 +48,7 @@
         },
         {
             "type": "java",
-            "name": "service-client 8014",
+            "name": "service-client 8002",
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "mainClass": "com.udemy.spring.cloud.service.item.app.ServiceItemApplication",

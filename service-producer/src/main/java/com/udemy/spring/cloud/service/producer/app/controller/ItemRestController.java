@@ -1,6 +1,7 @@
 package com.udemy.spring.cloud.service.producer.app.controller;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import com.udemy.spring.cloud.commons.model.data.Item;
@@ -41,7 +42,16 @@ public class ItemRestController {
     }
 
     @GetMapping("/findById/{id}")
-    public Item findAll(@PathVariable Long id) {
+    public Item findAll(@PathVariable Long id) throws InterruptedException {
+
+        if (id.equals(10L)) {
+            // Error simulation
+            throw new IllegalStateException("Item not found");
+        } else if (id.equals(10L)) {
+            // Timeout simulation
+            TimeUnit.SECONDS.sleep(5L);
+        }
+
         Item item = iItemService.findById(id);
         item.setServerPort(Integer.parseInt(environment.getProperty("local.server.port")));
 
@@ -49,13 +59,6 @@ public class ItemRestController {
         // boolean ok = false;
         // if (!ok) {
         // throw new RuntimeException("Error simulation");
-        // }
-
-        // Timeout simulation
-        // try {
-        // Thread.sleep(2000l);
-        // } catch (InterruptedException e) {
-        // e.printStackTrace();
         // }
 
         return item;
