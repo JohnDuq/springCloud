@@ -1,3 +1,24 @@
+# resilience4j:
+#   circuitbreaker:
+#     configs:
+#       nameConfigCircuitBreaker:
+#         sliding-window-size: 6 # Rango de peticiones a medir
+#         failure-rate-threshold: 50 # Porcentaje de fallo permitido para no abrir el circuito
+#         wait-duration-in-open-state: 20s # Tiempo de espera para cerrar de nuevo el circuito
+#         permitted-number-of-calls-in-half-open-state: 4 # Numero permitido de peticiones en estado medio-abierto
+#         slow-call-rate-threshold: 50 # Porcentaje permitido de llamadas con timeout
+#         slow-call-duration-threshold: 2s # Tiempo de llamado considerado lento para el circuito
+#     instances: # Circuitos con configuración asociada
+#       productos: # Nombre del circuito
+#         base-config: nameConfigCircuitBreaker # Nombre de configuración para el circuito
+#   timeLimiter:
+#     configs:
+#       nameConfigCircuitBreaker:
+#         timeout-duration: 6s # (TIME OUT) Tiempo de espera del circuito
+#     instances:
+#       productos:
+#         base-config: nameConfigCircuitBreaker
+
 spring:
   cloud:
     gateway:
@@ -15,6 +36,7 @@ spring:
           # https://spring.io/projects/spring-cloud-gateway#learn
           # Current -> Reference Doc. -> Route Predicate Factories
         filters:
+          # - CircuitBreaker=productos
           - StripPrefix=3 # Define la cantida de paths que pertenecen al gateway
           - ExampleCookieName=Custom Message, user, jduquer
           # - name: Specific # Prefijo de la clase Specific/GatewayFilterFactory.java
