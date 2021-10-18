@@ -25,7 +25,7 @@
         "scrollbarSlider.hoverBackground": "#68217a"
     },
     "editor.cursorBlinking": "expand",
-    "editor.fontFamily": "'cascadia code', Consolas, 'Courier New', monospace",
+    "editor.fontFamily": "'Cascadia Code', Consolas, 'Courier New', monospace",
     "editor.minimap.scale": 3,
     "editor.cursorSmoothCaretAnimation": true,
     "editor.cursorWidth": 3,
