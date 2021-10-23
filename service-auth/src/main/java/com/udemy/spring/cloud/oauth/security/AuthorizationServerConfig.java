@@ -1,6 +1,7 @@
 package com.udemy.spring.cloud.oauth.security;
 
 import java.util.Arrays;
+import java.util.Base64;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -81,7 +82,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Bean
     public JwtAccessTokenConverter accessTokenConverter() {
         JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
-        jwtAccessTokenConverter.setSigningKey(env.getProperty("config.security.oauth.jwt.key")); // Define secreto de codificacion del JWT
+        jwtAccessTokenConverter.setSigningKey(
+                Base64.getEncoder().encodeToString(env.getProperty("config.security.oauth.jwt.key").getBytes()));
+        // Define secreto de codificacion del JWT
         return jwtAccessTokenConverter;
     }
 
