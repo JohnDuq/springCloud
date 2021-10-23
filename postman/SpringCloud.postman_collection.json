@@ -240,6 +240,20 @@
 								},
 								{
 									"name": "user-dao",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"bodyData = JSON.parse(responseBody);\r",
+													"idUserCreated=bodyData.idUser;\r",
+													"console.log(\"idUserCreated: \" + idUserCreated);\r",
+													"pm.environment.set(\"idUserCreated\", idUserCreated);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
 									"request": {
 										"auth": {
 											"type": "bearer",
@@ -274,6 +288,90 @@
 												"api",
 												"user",
 												"user-dao"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "user-dao",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{accessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"id\":{{idUserCreated}},\r\n    \"username\": \"{{$randomUserName}}\",\r\n    \"password\": \"{{passwordUSER}}\",\r\n    \"status\": \"ENABLE\",\r\n    \"name\": \"{{$randomFirstName}}\",\r\n    \"lastName\": \"{{$randomLastName}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"createFor\": \"POSTMAN\",\r\n    \"createAt\": \"2021-07-30T15:59:52.130+00:00\",\r\n    \"updateFor\": null,\r\n    \"updateAt\": null\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8090/gateway/api/user/user-dao/{{idUserCreated}}",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8090",
+											"path": [
+												"gateway",
+												"api",
+												"user",
+												"user-dao",
+												"{{idUserCreated}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "user-dao",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{accessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8090/gateway/api/user/user-dao/{{idUserCreated}}",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8090",
+											"path": [
+												"gateway",
+												"api",
+												"user",
+												"user-dao",
+												"{{idUserCreated}}"
 											]
 										}
 									},
@@ -440,17 +538,17 @@
 											"urlencoded": [
 												{
 													"key": "username",
-													"value": "ROOT",
+													"value": "{{usernameROOT}}",
 													"type": "text"
 												},
 												{
 													"key": "password",
-													"value": "12345",
+													"value": "{{passwordROOT}}",
 													"type": "text"
 												},
 												{
 													"key": "grant_type",
-													"value": "password",
+													"value": "{{grant_type}}",
 													"type": "text"
 												}
 											]
@@ -515,17 +613,17 @@
 											"urlencoded": [
 												{
 													"key": "username",
-													"value": "USER",
+													"value": "{{usernameUSER}}",
 													"type": "text"
 												},
 												{
 													"key": "password",
-													"value": "12345",
+													"value": "{{passwordUSER}}",
 													"type": "text"
 												},
 												{
 													"key": "grant_type",
-													"value": "password",
+													"value": "{{grant_type}}",
 													"type": "text"
 												}
 											]
@@ -612,7 +710,14 @@
 							"name": "findAll",
 							"request": {
 								"auth": {
-									"type": "noauth"
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
 								},
 								"method": "GET",
 								"header": [
@@ -642,6 +747,16 @@
 						{
 							"name": "findByIdAmount",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [],
 								"url": {
@@ -666,6 +781,16 @@
 						{
 							"name": "get-config",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [],
 								"url": {
@@ -688,6 +813,16 @@
 						{
 							"name": "create item",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -719,6 +854,16 @@
 						{
 							"name": "update item",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "PUT",
 								"header": [],
 								"body": {
@@ -751,6 +896,16 @@
 						{
 							"name": "delete item",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "DELETE",
 								"header": [],
 								"url": {
@@ -774,6 +929,16 @@
 						{
 							"name": "actuator refresh",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [],
 								"url": {
@@ -802,6 +967,16 @@
 						{
 							"name": "findAll Items",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [
 									{
@@ -843,6 +1018,16 @@
 						{
 							"name": "findById",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [
 									{
@@ -885,6 +1070,16 @@
 						{
 							"name": "create item",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -916,6 +1111,16 @@
 						{
 							"name": "update item",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "PUT",
 								"header": [],
 								"body": {
@@ -948,6 +1153,16 @@
 						{
 							"name": "delete item",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "DELETE",
 								"header": [],
 								"url": {
