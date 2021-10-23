@@ -20,7 +20,7 @@ import io.jsonwebtoken.security.Keys;
 import reactor.core.publisher.Mono;
 
 @Component
-public class AuthenticationManagerJWT implements ReactiveAuthenticationManager{
+public class AuthenticationManagerJWT implements ReactiveAuthenticationManager {
 
     @Value("${config.security.oauth.jwt.key}")
     private String keyJWT;
