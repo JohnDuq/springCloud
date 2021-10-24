@@ -2,17 +2,6 @@
     "configurations": [
         {
             "type": "java",
-            "name": "spring-gateway 8090",
-            "request": "launch",
-            "mainClass": "com.udemy.spring.cloud.gateway.SpringGatewayApplication",
-            "projectName": "spring-gateway",
-            "args": "",
-            "vmArgs": "",
-            "console": "internalConsole",
-            "internalConsoleOptions": "openOnSessionStart"
-        },
-        {
-            "type": "java",
             "name": "config-server 8888",
             "request": "launch",
             "mainClass": "com.udemy.spring.cloud.server.config.configserver.ConfigServerApplication",
@@ -64,6 +53,17 @@
             "cwd": "${workspaceFolder}",
             "mainClass": "com.udemy.spring.cloud.service.item.app.ServiceItemApplication",
             "projectName": "service-client",
+            "args": "",
+            "vmArgs": "",
+            "console": "internalConsole",
+            "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
+            "type": "java",
+            "name": "spring-gateway 8090",
+            "request": "launch",
+            "mainClass": "com.udemy.spring.cloud.gateway.SpringGatewayApplication",
+            "projectName": "spring-gateway",
             "args": "",
             "vmArgs": "",
             "console": "internalConsole",
