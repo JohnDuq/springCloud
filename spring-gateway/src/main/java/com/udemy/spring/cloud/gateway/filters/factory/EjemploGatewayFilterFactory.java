@@ -1,4 +1,4 @@
-package com.formacionbdi.springboot.app.gateway.filters.factory;
+package com.udemy.spring.cloud.gateway.filters.factory;
 
 import java.util.Arrays;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.formacionbdi.springboot.app.gateway;
+package com.udemy.spring.cloud.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,10 +6,10 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 @EnableEurekaClient
 @SpringBootApplication
-public class SpringbootServicioGatewayServerApplication {
+public class SpringGatewayApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringbootServicioGatewayServerApplication.class, args);
+		SpringApplication.run(SpringGatewayApplication.class, args);
 	}
 
 }

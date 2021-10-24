@@ -10,9 +10,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.formacionbdi.springboot.app.gateway</groupId>
-	<artifactId>springboot-servicio-gateway-server</artifactId>
+	<artifactId>spring-gateway</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>springboot-servicio-gateway-server</name>
+	<name>spring-gateway</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>

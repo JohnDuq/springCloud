@@ -1,4 +1,4 @@
-package com.formacionbdi.springboot.app.gateway.security;
+package com.udemy.spring.cloud.gateway.security;
 
 import java.util.Base64;
 import java.util.Collection;
