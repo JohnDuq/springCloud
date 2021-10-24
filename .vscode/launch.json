@@ -2,10 +2,14 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Launch SpringGatewayApplication",
+            "name": "spring-gateway 8090",
             "request": "launch",
             "mainClass": "com.udemy.spring.cloud.gateway.SpringGatewayApplication",
-            "projectName": "spring-gateway"
+            "projectName": "spring-gateway",
+            "args": "",
+            "vmArgs": "",
+            "console": "internalConsole",
+            "internalConsoleOptions": "openOnSessionStart"
         },
         {
             "type": "java",
