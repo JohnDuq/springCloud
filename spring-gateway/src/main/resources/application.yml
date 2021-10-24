@@ -51,8 +51,8 @@ spring:
           - Path=/gateway/api/security/**
         filters:
           - StripPrefix=3
-      - id: user-cloud
-        uri: lb://user-cloud
+      - id: service-user-role
+        uri: lb://service-user-role
         predicates:
           - Path=/gateway/api/user/**
         filters:

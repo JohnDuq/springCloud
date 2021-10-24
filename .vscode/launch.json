@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch UserCloudApplication",
+            "request": "launch",
+            "mainClass": "com.udemy.spring.cloud.user.UserCloudApplication",
+            "projectName": "service-user-role"
+        },
+        {
+            "type": "java",
             "name": "config-server 8888",
             "request": "launch",
             "mainClass": "com.udemy.spring.cloud.server.config.configserver.ConfigServerApplication",
@@ -53,17 +60,6 @@
             "cwd": "${workspaceFolder}",
             "mainClass": "com.udemy.spring.cloud.service.item.app.ServiceItemApplication",
             "projectName": "service-client",
-            "args": "",
-            "vmArgs": "",
-            "console": "internalConsole",
-            "internalConsoleOptions": "openOnSessionStart"
-        },
-        {
-            "type": "java",
-            "name": "user-cloud random port",
-            "request": "launch",
-            "mainClass": "com.udemy.spring.cloud.user.UserCloudApplication",
-            "projectName": "user-cloud",
             "args": "",
             "vmArgs": "",
             "console": "internalConsole",

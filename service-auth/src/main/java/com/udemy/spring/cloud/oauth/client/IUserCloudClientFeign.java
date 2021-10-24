@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(name = "user-cloud")
+@FeignClient(name = "service-user-role")
 public interface IUserCloudClientFeign {
 
     @GetMapping("/user-dao/search/findByUsername")
