@@ -2,13 +2,6 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Launch UserCloudApplication",
-            "request": "launch",
-            "mainClass": "com.udemy.spring.cloud.user.UserCloudApplication",
-            "projectName": "service-user-role"
-        },
-        {
-            "type": "java",
             "name": "config-server 8888",
             "request": "launch",
             "mainClass": "com.udemy.spring.cloud.server.config.configserver.ConfigServerApplication",
@@ -24,6 +17,28 @@
             "request": "launch",
             "mainClass": "com.udemy.spring.cloud.server.eureka.eurekaserver.EurekaServerApplication",
             "projectName": "eureka-server",
+            "args": "",
+            "vmArgs": "",
+            "console": "internalConsole",
+            "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
+            "type": "java",
+            "name": "service-user-role random port",
+            "request": "launch",
+            "mainClass": "com.udemy.spring.cloud.user.ServiceUserRoleApplication",
+            "projectName": "service-user-role",
+            "args": "",
+            "vmArgs": "",
+            "console": "internalConsole",
+            "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
+            "type": "java",
+            "name": "service-auth 9100",
+            "request": "launch",
+            "mainClass": "com.udemy.spring.cloud.oauth.ServiceAuthApplication",
+            "projectName": "service-auth",
             "args": "",
             "vmArgs": "",
             "console": "internalConsole",
@@ -60,17 +75,6 @@
             "cwd": "${workspaceFolder}",
             "mainClass": "com.udemy.spring.cloud.service.item.app.ServiceItemApplication",
             "projectName": "service-client",
-            "args": "",
-            "vmArgs": "",
-            "console": "internalConsole",
-            "internalConsoleOptions": "openOnSessionStart"
-        },
-        {
-            "type": "java",
-            "name": "service-auth 9100",
-            "request": "launch",
-            "mainClass": "com.udemy.spring.cloud.oauth.ServiceAuthApplication",
-            "projectName": "service-auth",
             "args": "",
             "vmArgs": "",
             "console": "internalConsole",
