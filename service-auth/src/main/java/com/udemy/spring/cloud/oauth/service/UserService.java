@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import brave.Tracer;
 import feign.FeignException;
 
 @Service
@@ -29,6 +30,9 @@ public class UserService implements UserDetailsService, IUserService {
     private static final boolean ACCOUNT_NON_EXPIRED = true;
     private static final boolean CREDENTIALS_NON_EXPIRED = true;
     private static final boolean ACCOUNT_NON_LOCKED = true;
+
+    @Autowired
+    private Tracer tracer;
 
     @Autowired
     private IUserCloudClientFeign iUserCloudClientFeign;
@@ -60,6 +64,7 @@ public class UserService implements UserDetailsService, IUserService {
         } catch (FeignException fe) {
             String errorMessage = "User doesnt exist:" + username;
             log.error(errorMessage);
+            tracer.currentSpan().tag("ERROR TAG NAME", errorMessage + ": " + fe.getMessage());
             throw new UsernameNotFoundException(errorMessage);
         }
     }

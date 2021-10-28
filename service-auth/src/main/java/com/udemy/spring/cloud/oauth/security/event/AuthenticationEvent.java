@@ -13,13 +13,18 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import brave.Tracer;
 import feign.FeignException;
 
 @Component
 public class AuthenticationEvent implements AuthenticationEventPublisher {
 
+    private static final String SEPARATOR = "-";
+
     private Logger log = LoggerFactory.getLogger(AuthenticationEvent.class);
 
+    @Autowired
+    private Tracer tracer;
     @Autowired
     private IUserService iUserService;
     @Value("${config.security.oauth.client.id}")
@@ -48,19 +53,28 @@ public class AuthenticationEvent implements AuthenticationEventPublisher {
         log.error(message);
         if (!consumerApp.equals(authentication.getName())) {
             try {
+                StringBuilder errors = new StringBuilder();
+                errors.append(message);
                 User user = iUserService.findByUsername(authentication.getName());
                 if (user.getLoginTry() == null) {
                     user.setLoginTry(0);
                 }
                 user.setLoginTry(user.getLoginTry() + 1);
-                log.error(String.format("User %s tried login time %s", user.getUsername(), user.getLoginTry()));
+                String errorloginTry = String.format("User %s tried login time %s", user.getUsername(), 
+                    user.getLoginTry());
+                log.error(errorloginTry);
+                errors.append(SEPARATOR).append(errorloginTry);
 
                 if (user.getLoginTry() >= loginTry) {
-                    log.error(String.format("User %s DISABLE for maximun trys login %s", user.getUsername(), loginTry));
+                    String errorUserDisabled = String.format("User %s DISABLE for maximun trys login %s", 
+                        user.getUsername(), loginTry);
+                    log.error(errorUserDisabled);
                     user.setStatus("DISABLE");
+                    errors.append(SEPARATOR).append(errorUserDisabled);
                 }
 
                 iUserService.update(user, user.getIdUser());
+                tracer.currentSpan().tag("ERROR TAG NAME", errors.toString());
             } catch (FeignException fe) {
                 log.error("User does not exist!");
             }
