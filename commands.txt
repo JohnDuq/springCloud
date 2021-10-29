@@ -1,0 +1,18 @@
+
+/////DOCKER
+// Comando para crear la imagen a partir del Dockerfile
+docker build -t [NOMBRE-IMAGEN]:[VERSION] .
+// Comando para listar imagenes
+docker images
+// Comando para crear una red
+docker network create [NOMBRE-RED]
+// Comando para listar las redes
+docker network ls
+// Comando para correr un contenedor a partir de una imagen
+docker run -p [NUMERO-PUERTO-CPU]:[NUMERO-PUERTO-CONTENEDOR] --name [NOMBRE-CONTENEDOR] --network [NOMBRE-RED] [NOMBRE-IMAGEN]:[VERSION]
+// Comando para correr un contenedor a partir del ID
+docker start [CONTAINER ID]
+// Comando para detener un contenedor a partir del ID
+docker stop [CONTAINER ID]
+// Comando para listar todos los contenedores
+docker ps -a
