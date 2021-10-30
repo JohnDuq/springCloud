@@ -9,10 +9,18 @@ docker network create [NOMBRE-RED]
 // Comando para listar las redes
 docker network ls
 // Comando para correr un contenedor a partir de una imagen
-docker run -p [NUMERO-PUERTO-CPU]:[NUMERO-PUERTO-CONTENEDOR] --name [NOMBRE-CONTENEDOR] --network [NOMBRE-RED] [NOMBRE-IMAGEN]:[VERSION]
+docker run -p [NUMERO-PUERTO-SO]:[NUMERO-PUERTO-CONTENEDOR] --name [NOMBRE-CONTENEDOR] --network [NOMBRE-RED] [NOMBRE-IMAGEN]:[VERSION]
 // Comando para correr un contenedor a partir del ID
 docker start [CONTAINER ID]
 // Comando para detener un contenedor a partir del ID
 docker stop [CONTAINER ID]
 // Comando para listar todos los contenedores
 docker ps -a
+
+// Bases de Datos
+// MySql
+docker pull mysql:8
+docker run -p 3306:3306 --name mysql-db-container --network springcloud -e MYSQL_ROOT_PASSWORD=12345 -e MYSQL_DATABASE=db_springboot_cloud -d mysql:8
+// Postgres
+docker pull postgres:12-alpine
+docker run -p 5432:5432 --name postgres-db-container --network springcloud -e POSTGRES_PASSWORD=12345 -e POSTGRES_DB=db_springboot_cloud -d postgres:12-alpine
