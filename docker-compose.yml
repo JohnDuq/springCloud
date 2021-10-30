@@ -13,6 +13,17 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 12345 
       MYSQL_DATABASE: db_springboot_cloud
+  rabbit-mq-container:
+    image: rabbit-mq-image
+    build: ./rabbit-mq
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    restart: always
+    networks:
+      - springcloud
+    depends_on:
+      - mysql-db-container
   zipkin-server-container:
     image: zipkin-server-image:v1
     build: ./zipkin-server
@@ -24,15 +35,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 12345 
       MYSQL_DATABASE: db_springboot_cloud
-  rabbit-mq-container:
-    image: rabbit-mq-image
-    build: ./rabbit-mq
-    ports:
-      - "15672:15672"
-      - "5672:5672"
-    restart: always
-    networks:
-      - springcloud
+    depends_on:
+      - rabbit-mq-container
   config-server-container:
     image: config-server-image:v1
     build: ./config-server
@@ -59,6 +63,8 @@ services:
       - mysql-db-container
       - config-server-container
       - eureka-server-container
+      - rabbit-mq-container
+      - zipkin-server-container
   service-auth-container:
     image: service-auth-image:v1
     build: ./service-auth
@@ -94,7 +100,8 @@ services:
     networks:
       - springcloud
     depends_on:
-      - service-producer-container
+      - service-producer-container-1
+      - service-producer-container-2
   zuul-gateway-container:
     image: zuul-gateway-image:v1
     build: ./zuul-gateway
