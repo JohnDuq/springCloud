@@ -1,3 +1,7 @@
+/////GRADLE
+// Comando para limpiar, compilar y refrescar las librerias
+.\gradlew.bat clean build --refresh-dependencies
+
 
 /////DOCKER
 // Comando para crear la imagen a partir del Dockerfile
@@ -9,6 +13,8 @@ docker network create [NOMBRE-RED]
 // Comando para listar las redes
 docker network ls
 // Comando para correr un contenedor a partir de una imagen
+// -p (miniscula) para definir el puerto
+// -P (mayuscula) expone todos los puertos
 docker run -p [NUMERO-PUERTO-SO]:[NUMERO-PUERTO-CONTENEDOR] --name [NOMBRE-CONTENEDOR] --network [NOMBRE-RED] [NOMBRE-IMAGEN]:[VERSION]
 // Comando para correr un contenedor a partir del ID
 docker start [CONTAINER ID]
