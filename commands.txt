@@ -4,6 +4,19 @@
 
 
 /////DOCKER
+
+/////DB
+// MySql
+docker pull mysql:8
+docker run -p 3306:3306 --name mysql-db-container --network springcloud -e MYSQL_ROOT_PASSWORD=12345 -e MYSQL_DATABASE=db_springboot_cloud -d mysql:8
+// Postgres
+docker pull postgres:12-alpine
+docker run -p 5432:5432 --name postgres-db-container --network springcloud -e POSTGRES_PASSWORD=12345 -e POSTGRES_DB=db_springboot_cloud -d postgres:12-alpine
+
+/////RABBIT
+docker pull rabbitmq:3.9-management-alpine
+docker run -p 15672:15672 -p 5672:5672 --name rabbit-mq-container --network springcloud -d rabbitmq:3.9-management-alpine
+
 // Comando para crear la imagen a partir del Dockerfile
 docker build -t [NOMBRE-IMAGEN]:[VERSION] .
 // Comando para listar imagenes
@@ -22,11 +35,3 @@ docker start [CONTAINER ID]
 docker stop [CONTAINER ID]
 // Comando para listar todos los contenedores
 docker ps -a
-
-// Bases de Datos
-// MySql
-docker pull mysql:8
-docker run -p 3306:3306 --name mysql-db-container --network springcloud -e MYSQL_ROOT_PASSWORD=12345 -e MYSQL_DATABASE=db_springboot_cloud -d mysql:8
-// Postgres
-docker pull postgres:12-alpine
-docker run -p 5432:5432 --name postgres-db-container --network springcloud -e POSTGRES_PASSWORD=12345 -e POSTGRES_DB=db_springboot_cloud -d postgres:12-alpine
