@@ -1,0 +1,107 @@
+version: '3.7'
+networks:
+  springcloud:
+services:
+  mysql-db-container:
+    image: mysql-db-image:v1
+    build: ./mysql-db
+    ports:
+      - "3306:3306"
+    restart: always
+    networks:
+      - springcloud
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345 
+      MYSQL_DATABASE: db_springboot_cloud
+  zipkin-server-container:
+    image: zipkin-server-image:v1
+    build: ./zipkin-server
+    ports:
+      - "9411:9411"
+    restart: always
+    networks:
+      - springcloud
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345 
+      MYSQL_DATABASE: db_springboot_cloud
+  rabbit-mq-container:
+    image: rabbit-mq-image
+    build: ./rabbit-mq
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    restart: always
+    networks:
+      - springcloud
+  config-server-container:
+    image: config-server-image:v1
+    build: ./config-server
+    ports:
+      - "8888:8888"
+    restart: always
+    networks:
+      - springcloud
+  eureka-server-container:
+    image: eureka-server-image:v1
+    build: ./eureka-server
+    ports:
+      - "8761:8761"
+    restart: always
+    networks:
+      - springcloud
+  service-user-role-container:
+    image: service-user-role-image:v1
+    build: ./service-user-role
+    restart: always
+    networks:
+      - springcloud
+    depends_on:
+      - mysql-db-container
+      - config-server-container
+      - eureka-server-container
+  service-auth-container:
+    image: service-auth-image:v1
+    build: ./service-auth
+    ports:
+      - "9100:9100"
+    restart: always
+    networks:
+      - springcloud
+    depends_on:
+      - service-user-role-container
+  service-producer-container-1:
+    image: service-producer-image:v1
+    build: ./service-producer
+    restart: always
+    networks:
+      - springcloud
+    depends_on:
+      - service-auth-container
+  service-producer-container-2:
+    image: service-producer-image:v1
+    build: ./service-producer
+    restart: always
+    networks:
+      - springcloud
+    depends_on:
+      - service-auth-container
+  service-client-container:
+    image: service-client-image:v1
+    build: ./service-client
+    ports:
+      - "8002:8002"
+    restart: always
+    networks:
+      - springcloud
+    depends_on:
+      - service-producer-container
+  zuul-gateway-container:
+    image: zuul-gateway-image:v1
+    build: ./zuul-gateway
+    ports:
+      - "8090:8090"
+    restart: always
+    networks:
+      - springcloud
+    depends_on:
+      - service-client-container
