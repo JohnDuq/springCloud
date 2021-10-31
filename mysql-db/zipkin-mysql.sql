@@ -65,8 +65,13 @@ CREATE TABLE IF NOT EXISTS zipkin_dependencies (
   PRIMARY KEY (`day`, `parent`, `child`)
 ) ENGINE=InnoDB ROW_FORMAT=COMPRESSED CHARACTER SET=utf8 COLLATE utf8_general_ci;
 
-CREATE USER 'zipkin'@'localhost' IDENTIFIED BY '12345';
-CREATE USER 'zipkin'@'%' IDENTIFIED BY '12345';
+-- Creación de usuario zipkin a nivel localhost y % con password zipkinpass
+CREATE USER 'zipkin'@'localhost' IDENTIFIED BY 'zipkinpass';
+CREATE USER 'zipkin'@'%' IDENTIFIED BY 'zipkinpass';
+-- Alteración de password a nivel nativo para conexión sin RSA
+ALTER USER 'zipkin'@'localhost' IDENTIFIED WITH mysql_native_password BY 'zipkinpass';
+ALTER USER 'zipkin'@'%' IDENTIFIED WITH mysql_native_password BY 'zipkinpass';
+-- Permisos sobre las todas las tablas de la base de datos zipkin_db
 GRANT ALL ON `zipkin_db`.* TO 'zipkin'@'localhost';
 GRANT ALL ON `zipkin_db`.* TO 'zipkin'@'%';
 
