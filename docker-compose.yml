@@ -2,6 +2,17 @@ version: '3.7'
 networks:
   springcloud:
 services:
+  postgres-db-container:
+    image: postgres-db-image:v1
+    build: ./postgres-db
+    ports:
+      - "5432:5432"
+    restart: always
+    networks:
+      - springcloud
+    environment:
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: db_springboot_cloud
   mysql-db-container:
     image: mysql-db-image:v1
     build: ./mysql-db
@@ -13,6 +24,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 12345 
       MYSQL_DATABASE: db_springboot_cloud
+    depends_on:
+      - postgres-db-container
   rabbit-mq-container:
     image: rabbit-mq-image
     build: ./rabbit-mq
