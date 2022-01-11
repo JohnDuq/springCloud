@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch ServiceRegisterApplication",
+            "request": "launch",
+            "mainClass": "com.udemy.spring.cloud.service.register.app.ServiceRegisterApplication",
+            "projectName": "service-register"
+        },
+        {
+            "type": "java",
             "name": "config-server 8888",
             "request": "launch",
             "mainClass": "com.udemy.spring.cloud.server.config.configserver.ConfigServerApplication",

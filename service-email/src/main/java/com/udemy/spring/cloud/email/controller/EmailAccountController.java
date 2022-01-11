@@ -2,11 +2,11 @@ package com.udemy.spring.cloud.email.controller;
 
 import javax.mail.MessagingException;
 
+import com.udemy.spring.cloud.commons.model.auth.User;
 import com.udemy.spring.cloud.email.controller.common.EmailAccountStatus;
 import com.udemy.spring.cloud.email.controller.common.ServiceMapping;
 import com.udemy.spring.cloud.email.controller.model.request.RegisterEmailAccountReq;
 import com.udemy.spring.cloud.email.controller.model.response.ConfirmEmailAccountRes;
-import com.udemy.spring.cloud.email.controller.model.response.RegisterEmailAccountRes;
 import com.udemy.spring.cloud.email.service.IEmailService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +25,10 @@ public class EmailAccountController {
     private IEmailService iEmailService;
 
     @PostMapping(value = ServiceMapping.REGISTER_EMAIL_ACCOUNT)
-    public RegisterEmailAccountRes registerEmailAccount(@RequestBody RegisterEmailAccountReq registerEmailAccountReq)
-            throws MessagingException {
-        return iEmailService.registerEmailAccount(registerEmailAccountReq);
+    public User registerEmailAccount(@RequestBody User user) throws MessagingException {
+        iEmailService.registerEmailAccount(new RegisterEmailAccountReq(user.getEmail(), user.getName(),
+                user.getLastName()));
+        return user;
     }
 
     @GetMapping(value = ServiceMapping.CONFIRM_EMAIL_ACCOUNT)
