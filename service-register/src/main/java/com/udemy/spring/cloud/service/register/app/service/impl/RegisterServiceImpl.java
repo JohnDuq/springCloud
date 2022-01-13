@@ -6,7 +6,7 @@ import com.udemy.spring.cloud.commons.model.auth.User;
 import com.udemy.spring.cloud.service.register.app.client.IEmailServiceClient;
 import com.udemy.spring.cloud.service.register.app.common.DefaultValue;
 import com.udemy.spring.cloud.service.register.app.common.Status;
-// import com.udemy.spring.cloud.service.register.app.client.IUserCloudClientFeign;
+import com.udemy.spring.cloud.service.register.app.client.IUserCloudClientFeign;
 import com.udemy.spring.cloud.service.register.app.service.IRegisterService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,18 +17,16 @@ import reactor.core.publisher.Mono;
 @Service
 public class RegisterServiceImpl implements IRegisterService{
 
-    
-
-    // @Autowired
-    // private IUserCloudClientFeign iUserCloudClientFeign;
+    @Autowired
+    private IUserCloudClientFeign iUserCloudClientFeign;
     @Autowired
     private IEmailServiceClient iEmailServiceClient;
 
     public Mono<User> registerUser(User user) {
         return Mono.just(user)
                 .doOnNext(this::setDefaultValues)
-                //TODO .map(iUserCloudClientFeign::save)
-                .flatMap(iEmailServiceClient::save);
+                .map(iUserCloudClientFeign::save)
+                .flatMap(iEmailServiceClient::sendEmailVerification);
     }
 
     private User setDefaultValues(User user){

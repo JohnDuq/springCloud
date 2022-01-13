@@ -18,7 +18,7 @@ public class EmailServiceClientImpl implements IEmailServiceClient{
     private WebClient webClient;
 
     @Override
-    public Mono<User> save(User user) {
+    public Mono<User> sendEmailVerification(User user) {
         return webClient.post()
             .uri(Path.REGISTER_EMAIL_ACCOUNT)
             .accept(MediaType.APPLICATION_JSON)
