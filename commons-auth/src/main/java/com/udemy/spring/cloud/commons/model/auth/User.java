@@ -32,6 +32,8 @@ public class User implements Serializable {
     private String lastName;
     @Column(nullable = false, unique = true, length = 100)
     private String email;
+    @Column(nullable = false)
+    private String emailStatus;
     @Column
     private Integer loginTry;
     @Column(nullable = false)
@@ -99,6 +101,14 @@ public class User implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getEmailStatus() {
+        return emailStatus;
+    }
+
+    public void setEmailStatus(String emailStatus) {
+        this.emailStatus = emailStatus;
     }
 
     public String getCreateFor() {
