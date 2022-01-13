@@ -21,6 +21,11 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 public class EmailAccountController {
 
+    private static final String TOKEN = "token";
+    private static final String ERROR = "error";
+    private static final String MESSAGE = "message";
+    private static final String ACCOUNT_VERIFIED = "accountVerified";
+
     @Autowired
     private IEmailService iEmailService;
 
@@ -31,21 +36,22 @@ public class EmailAccountController {
         return user;
     }
 
+    //TODO The confirmation return error 500
     @GetMapping(value = ServiceMapping.CONFIRM_EMAIL_ACCOUNT)
-    public ConfirmEmailAccountRes confirmUserAccount(@RequestParam(value = "token") String unconfirmedToken) {
+    public ConfirmEmailAccountRes confirmUserAccount(@RequestParam(value = TOKEN) String unconfirmedToken) {
         return iEmailService.confirmEmailAccount(unconfirmedToken);
     }
 
     @GetMapping(value = ServiceMapping.CONFIRM_EMAIL_ACCOUNT_VIEW_TOKEN)
     public ModelAndView confirmUserAccountView(ModelAndView modelAndView,
-            @PathVariable("token") String unconfirmedToken) {
+            @PathVariable(TOKEN) String unconfirmedToken) {
         ConfirmEmailAccountRes confirmEmailAccountRes = iEmailService.confirmEmailAccount(unconfirmedToken);
         if (EmailAccountStatus.CONFIRMED.equals(confirmEmailAccountRes.getStatus())) {
-            modelAndView.addObject("message", confirmEmailAccountRes.getUserEntity().getEmailId());
-            modelAndView.setViewName("accountVerified");
+            modelAndView.addObject(MESSAGE, confirmEmailAccountRes.getUserEntity().getEmailId());
+            modelAndView.setViewName(ACCOUNT_VERIFIED);
         } else {
-            modelAndView.addObject("message", "The token is invalid or broken!");
-            modelAndView.setViewName("error");
+            modelAndView.addObject(MESSAGE, "The token is invalid or broken!");
+            modelAndView.setViewName(ERROR);
         }
         return modelAndView;
     }

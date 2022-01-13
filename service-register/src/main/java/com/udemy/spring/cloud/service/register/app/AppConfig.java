@@ -9,7 +9,7 @@ public class AppConfig {
 
     @Bean
     public WebClient buildWebClient(){
-        return WebClient.create("http://localhost:8090/gateway/api/user/user-dao");
+        return WebClient.create("http://localhost:8989");
     }
 
 }

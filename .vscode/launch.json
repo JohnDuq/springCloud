@@ -2,13 +2,6 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Launch ServiceRegisterApplication",
-            "request": "launch",
-            "mainClass": "com.udemy.spring.cloud.service.register.app.ServiceRegisterApplication",
-            "projectName": "service-register"
-        },
-        {
-            "type": "java",
             "name": "config-server 8888",
             "request": "launch",
             "mainClass": "com.udemy.spring.cloud.server.config.configserver.ConfigServerApplication",
@@ -94,6 +87,17 @@
             "cwd": "${workspaceFolder}",
             "mainClass": "com.udemy.spring.cloud.email.ServiceEmailApplication",
             "projectName": "service-email",
+            "args": "",
+            "vmArgs": "",
+            "console": "internalConsole",
+            "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
+            "type": "java",
+            "name": "service-register 9090",
+            "request": "launch",
+            "mainClass": "com.udemy.spring.cloud.service.register.app.ServiceRegisterApplication",
+            "projectName": "service-register",
             "args": "",
             "vmArgs": "",
             "console": "internalConsole",

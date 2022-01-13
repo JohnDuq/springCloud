@@ -22,7 +22,7 @@ public class TemplateService implements ITemplateService {
         velocityEngine.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
         velocityEngine.init();
 
-        Template t = velocityEngine.getTemplate("templates/verifyEmail.html");
+        Template template = velocityEngine.getTemplate("templates/verifyEmail.html");
 
         VelocityContext context = new VelocityContext();
         context.put("view", ServiceMapping.CONFIRM_EMAIL_ACCOUNT_VIEW);
@@ -31,7 +31,7 @@ public class TemplateService implements ITemplateService {
         context.put("token", token);
 
         StringWriter writer = new StringWriter();
-        t.merge(context, writer);
+        template.merge(context, writer);
         return writer.toString();
     }
 
