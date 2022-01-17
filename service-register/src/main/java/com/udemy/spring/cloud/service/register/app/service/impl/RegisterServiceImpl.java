@@ -10,6 +10,7 @@ import com.udemy.spring.cloud.service.register.app.client.IUserRoleCloudClient;
 import com.udemy.spring.cloud.service.register.app.service.IRegisterService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import reactor.core.publisher.Mono;
@@ -21,6 +22,8 @@ public class RegisterServiceImpl implements IRegisterService {
     private IUserRoleCloudClient iUserRoleCloudClient;
     @Autowired
     private IEmailServiceClient iEmailServiceClient;
+    @Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public Mono<User> registerUser(User user) {
         return Mono.just(user)
@@ -29,7 +32,8 @@ public class RegisterServiceImpl implements IRegisterService {
                 .flatMap(iEmailServiceClient::sendEmailVerification);
     }
 
-    private User setDefaultValues(User user){
+    private User setDefaultValues(User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setStatus(Status.DISABLE);
         user.setEmailStatus(Status.NO_VERIFIED);
         user.setLoginTry(DefaultValue.LOGIN_TRY);
