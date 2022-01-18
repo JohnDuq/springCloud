@@ -1,2 +1,10 @@
-1. https://www.erlang.org/downloads
-2. https://rabbitmq.com/install-windows.html#installer
+Installation
+
+1. https://www.erlang.org/downloads and install as administrator the exe
+2. https://rabbitmq.com/install-windows.html#installer and install as administrator the exe
+3. add to Path System Variable the url "C:\Program Files\RabbitMQ Server\rabbitmq_server-3.9.12\sbin"
+4. open cmd as administrator and execute this command: 'rabbitmq-plugins enable rabbitmq_management'
+
+Configuration
+
+1. go to the browser and put http://localhost:15672/, usename:guest password:guest

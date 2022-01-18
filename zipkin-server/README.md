@@ -1,4 +1,4 @@
-Decargar jar zipkin
+Descargar jar zipkin
 
 1. entrar https://zipkin.io/pages/quickstart.html
     - Java
