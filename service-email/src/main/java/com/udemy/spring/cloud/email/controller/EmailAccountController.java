@@ -3,13 +3,13 @@ package com.udemy.spring.cloud.email.controller;
 import javax.mail.MessagingException;
 
 import com.udemy.spring.cloud.commons.model.auth.User;
-import com.udemy.spring.cloud.email.controller.common.EmailAccountStatus;
-import com.udemy.spring.cloud.email.controller.common.ServiceMapping;
-import com.udemy.spring.cloud.email.controller.model.request.RegisterEmailAccountReq;
-import com.udemy.spring.cloud.email.controller.model.response.ConfirmEmailAccountRes;
+import com.udemy.spring.cloud.email.common.ServiceMapping;
+import com.udemy.spring.cloud.email.model.data.ConfirmationToken;
 import com.udemy.spring.cloud.email.service.IEmailService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,23 +31,25 @@ public class EmailAccountController {
 
     @PostMapping(value = ServiceMapping.REGISTER_EMAIL_ACCOUNT)
     public User registerEmailAccount(@RequestBody User user) throws MessagingException {
-        iEmailService.registerEmailAccount(new RegisterEmailAccountReq(user.getEmail(), user.getName(),
-                user.getLastName()));
-        return user;
+        return iEmailService.registerEmailAccount(user);
     }
 
-    //TODO The confirmation return error 500
     @GetMapping(value = ServiceMapping.CONFIRM_EMAIL_ACCOUNT)
-    public ConfirmEmailAccountRes confirmUserAccount(@RequestParam(value = TOKEN) String unconfirmedToken) {
-        return iEmailService.confirmEmailAccount(unconfirmedToken);
+    public ResponseEntity<?> confirmUserAccount(@RequestParam(value = TOKEN) String unconfirmedToken) {
+        ConfirmationToken confirmationToken = iEmailService.confirmEmailAccount(unconfirmedToken);
+        if (confirmationToken != null) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     @GetMapping(value = ServiceMapping.CONFIRM_EMAIL_ACCOUNT_VIEW_TOKEN)
     public ModelAndView confirmUserAccountView(ModelAndView modelAndView,
             @PathVariable(TOKEN) String unconfirmedToken) {
-        ConfirmEmailAccountRes confirmEmailAccountRes = iEmailService.confirmEmailAccount(unconfirmedToken);
-        if (EmailAccountStatus.CONFIRMED.equals(confirmEmailAccountRes.getStatus())) {
-            modelAndView.addObject(MESSAGE, confirmEmailAccountRes.getUserEntity().getEmailId());
+        ConfirmationToken confirmationToken = iEmailService.confirmEmailAccount(unconfirmedToken);
+        if (confirmationToken != null) {
+            modelAndView.addObject(MESSAGE, confirmationToken.getEmail());
             modelAndView.setViewName(ACCOUNT_VERIFIED);
         } else {
             modelAndView.addObject(MESSAGE, "The token is invalid or broken!");

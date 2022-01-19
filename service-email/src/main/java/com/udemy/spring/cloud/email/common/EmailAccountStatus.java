@@ -1,4 +1,4 @@
-package com.udemy.spring.cloud.email.controller.common;
+package com.udemy.spring.cloud.email.common;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

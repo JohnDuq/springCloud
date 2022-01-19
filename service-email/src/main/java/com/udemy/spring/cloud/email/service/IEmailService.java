@@ -2,15 +2,13 @@ package com.udemy.spring.cloud.email.service;
 
 import javax.mail.MessagingException;
 
-import com.udemy.spring.cloud.email.controller.model.request.RegisterEmailAccountReq;
-import com.udemy.spring.cloud.email.controller.model.response.ConfirmEmailAccountRes;
-import com.udemy.spring.cloud.email.controller.model.response.RegisterEmailAccountRes;
+import com.udemy.spring.cloud.commons.model.auth.User;
+import com.udemy.spring.cloud.email.model.data.ConfirmationToken;
 
 public interface IEmailService {
 
-    public RegisterEmailAccountRes registerEmailAccount(RegisterEmailAccountReq registerEmailAccountReq)
-            throws MessagingException;
+    public User registerEmailAccount(User user) throws MessagingException;
 
-    public ConfirmEmailAccountRes confirmEmailAccount(String unconfirmedToken);
+    public ConfirmationToken confirmEmailAccount(String unconfirmedToken);
 
 }

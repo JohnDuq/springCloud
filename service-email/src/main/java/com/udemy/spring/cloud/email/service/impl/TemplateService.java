@@ -2,8 +2,8 @@ package com.udemy.spring.cloud.email.service.impl;
 
 import java.io.StringWriter;
 
-import com.udemy.spring.cloud.email.controller.common.ServiceMapping;
-import com.udemy.spring.cloud.email.controller.model.request.RegisterEmailAccountReq;
+import com.udemy.spring.cloud.commons.model.auth.User;
+import com.udemy.spring.cloud.email.common.ServiceMapping;
 import com.udemy.spring.cloud.email.service.ITemplateService;
 
 import org.apache.velocity.Template;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TemplateService implements ITemplateService {
 
-    public String generateHtmlVerify(RegisterEmailAccountReq registerEmailAccountReq, String token) {
+    public String generateHtmlVerify(User user) {
         VelocityEngine velocityEngine = new VelocityEngine();
         velocityEngine.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
         velocityEngine.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
@@ -26,9 +26,9 @@ public class TemplateService implements ITemplateService {
 
         VelocityContext context = new VelocityContext();
         context.put("view", ServiceMapping.CONFIRM_EMAIL_ACCOUNT_VIEW);
-        context.put("firstName", registerEmailAccountReq.getFirstName());
-        context.put("lastName", registerEmailAccountReq.getLastName());
-        context.put("token", token);
+        context.put("firstName", user.getName());
+        context.put("lastName", user.getLastName());
+        context.put("token", user.getEmailToken());
 
         StringWriter writer = new StringWriter();
         template.merge(context, writer);

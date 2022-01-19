@@ -20,8 +20,13 @@ public class RegisterRestController {
     private IRegisterService iRegisterService;
 
     @PostMapping
-    public Mono<User> registerUserEmail(@RequestBody Mono<User> mnUser){
+    public Mono<User> registerUserEmail(@RequestBody Mono<User> mnUser) {
         return mnUser.flatMap(iRegisterService::registerUser);
     }
-    
+
+    @PostMapping
+    public Mono<User> confirmUserEmail(@RequestBody Mono<String> token) {
+        return null;
+    }
+
 }

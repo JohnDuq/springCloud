@@ -1,9 +1,9 @@
 package com.udemy.spring.cloud.email.service;
 
-import com.udemy.spring.cloud.email.controller.model.request.RegisterEmailAccountReq;
+import com.udemy.spring.cloud.commons.model.auth.User;
 
 public interface ITemplateService {
 
-    public String generateHtmlVerify(RegisterEmailAccountReq registerEmailAccountReq, String token);
+    public String generateHtmlVerify(User user);
     
 }

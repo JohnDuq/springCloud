@@ -35,6 +35,8 @@ public class User implements Serializable {
     @Column(nullable = false)
     private String emailStatus;
     @Column
+    private String emailToken;
+    @Column
     private Integer loginTry;
     @Column(nullable = false)
     private String createFor;
@@ -109,6 +111,14 @@ public class User implements Serializable {
 
     public void setEmailStatus(String emailStatus) {
         this.emailStatus = emailStatus;
+    }
+
+    public String getEmailToken() {
+        return emailToken;
+    }
+
+    public void setEmailToken(String emailToken) {
+        this.emailToken = emailToken;
     }
 
     public String getCreateFor() {
