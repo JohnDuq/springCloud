@@ -24,9 +24,4 @@ public class RegisterRestController {
         return mnUser.flatMap(iRegisterService::registerUser);
     }
 
-    @PostMapping
-    public Mono<User> confirmUserEmail(@RequestBody Mono<String> token) {
-        return null;
-    }
-
 }

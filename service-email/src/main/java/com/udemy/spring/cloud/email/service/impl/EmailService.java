@@ -56,7 +56,7 @@ public class EmailService implements IEmailService {
     }
 
     public ConfirmationToken confirmEmailAccount(String unconfirmedToken) {
-        ConfirmationToken confirmationToken = confirmationTokenRepository.findByConfirmationToken(unconfirmedToken);
+        ConfirmationToken confirmationToken = confirmationTokenRepository.findByToken(unconfirmedToken);
         if (confirmationToken != null) {
             confirmationTokenRepository.deleteById(confirmationToken.getTokenId());
         }
