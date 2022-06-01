@@ -75,8 +75,8 @@ public class UserService implements UserDetailsService, IUserService {
     }
 
     @Override
-    public User update(User user, Long idUser) {
-        return iUserCloudClientFeign.update(user, idUser);
+    public User update(User user) {
+        return iUserCloudClientFeign.save(user);
     }
 
 }

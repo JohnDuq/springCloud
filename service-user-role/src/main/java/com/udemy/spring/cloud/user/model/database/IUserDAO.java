@@ -11,6 +11,8 @@ import org.springframework.data.rest.core.annotation.RestResource;
 @RepositoryRestResource(path = "user-dao")
 public interface IUserDAO extends PagingAndSortingRepository<User, Long> {
 
+    public User save(User user);
+
     public User findByUsername(@Param("username") String username);
 
     public User findByEmail(@Param("email") String email);

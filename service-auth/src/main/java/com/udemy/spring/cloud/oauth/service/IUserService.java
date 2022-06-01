@@ -6,6 +6,6 @@ public interface IUserService {
 
     public User findByUsername(String username);
 
-    public User update(User user, Long idUser);
+    public User update(User user);
 
 }

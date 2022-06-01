@@ -41,7 +41,7 @@ public class AuthenticationEvent implements AuthenticationEventPublisher {
         if (!consumerApp.equals(authentication.getName())) {
             User user = iUserService.findByUsername(authentication.getName());
             user.setLoginTry(0);
-            iUserService.update(user, user.getIdUser());
+            iUserService.update(user);
         }
 
     }
@@ -73,7 +73,7 @@ public class AuthenticationEvent implements AuthenticationEventPublisher {
                     errors.append(SEPARATOR).append(errorUserDisabled);
                 }
 
-                iUserService.update(user, user.getIdUser());
+                iUserService.update(user);
                 tracer.currentSpan().tag("ERROR TAG NAME", errors.toString());
             } catch (FeignException fe) {
                 log.error("User does not exist!");
