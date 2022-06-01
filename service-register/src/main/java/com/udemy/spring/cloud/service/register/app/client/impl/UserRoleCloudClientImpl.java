@@ -1,7 +1,5 @@
 package com.udemy.spring.cloud.service.register.app.client.impl;
 
-import java.util.Collections;
-
 import com.udemy.spring.cloud.commons.model.auth.User;
 import com.udemy.spring.cloud.service.register.app.client.IUserRoleCloudClient;
 import com.udemy.spring.cloud.service.register.app.common.BeanName;

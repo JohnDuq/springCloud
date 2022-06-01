@@ -17,6 +17,8 @@ public interface IUserDAO extends PagingAndSortingRepository<User, Long> {
 
     public User findByEmail(@Param("email") String email);
 
+    public User findByEmailToken(@Param("emailToken") String emailToken);
+
     @RestResource(path = "find-id")
     public User findByIdUser(@Param("id") Long idUser);
 

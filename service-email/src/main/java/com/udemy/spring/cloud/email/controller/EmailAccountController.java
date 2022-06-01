@@ -36,8 +36,8 @@ public class EmailAccountController {
 
     @GetMapping(value = ServiceMapping.CONFIRM_EMAIL_ACCOUNT)
     public ResponseEntity<?> confirmUserAccount(@RequestParam(value = TOKEN) String unconfirmedToken) {
-        ConfirmationToken confirmationToken = iEmailService.confirmEmailAccount(unconfirmedToken);
-        if (confirmationToken != null) {
+        String email = iEmailService.confirmEmailAccount(unconfirmedToken);
+        if (email != null) {
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -47,9 +47,9 @@ public class EmailAccountController {
     @GetMapping(value = ServiceMapping.CONFIRM_EMAIL_ACCOUNT_VIEW_TOKEN)
     public ModelAndView confirmUserAccountView(ModelAndView modelAndView,
             @PathVariable(TOKEN) String unconfirmedToken) {
-        ConfirmationToken confirmationToken = iEmailService.confirmEmailAccount(unconfirmedToken);
-        if (confirmationToken != null) {
-            modelAndView.addObject(MESSAGE, confirmationToken.getEmail());
+        String email = iEmailService.confirmEmailAccount(unconfirmedToken);
+        if (email != null) {
+            modelAndView.addObject(MESSAGE, email);
             modelAndView.setViewName(ACCOUNT_VERIFIED);
         } else {
             modelAndView.addObject(MESSAGE, "The token is invalid or broken!");

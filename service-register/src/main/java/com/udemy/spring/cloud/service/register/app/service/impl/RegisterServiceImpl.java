@@ -10,27 +10,24 @@ import com.udemy.spring.cloud.service.register.app.common.Status;
 import com.udemy.spring.cloud.service.register.app.service.IRegisterService;
 
 import org.apache.commons.lang.RandomStringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
 @Service
+@RequiredArgsConstructor
 public class RegisterServiceImpl implements IRegisterService {
 
-    @Autowired
-    private IUserRoleCloudClient iUserRoleCloudClient;
-    @Autowired
-    private IEmailServiceClient iEmailServiceClient;
-    @Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final IUserRoleCloudClient iUserRoleCloudClient;
+    private final IEmailServiceClient iEmailServiceClient;
+	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public Mono<User> registerUser(User user) {
         return Mono.just(user)
                 .doOnNext(this::setDefaultValues)
                 .flatMap(iUserRoleCloudClient::save)
-                .flatMap(userSaved -> iUserRoleCloudClient.findByUsername(userSaved.getUsername()))
                 .flatMap(iEmailServiceClient::sendEmailVerification);
     }
 

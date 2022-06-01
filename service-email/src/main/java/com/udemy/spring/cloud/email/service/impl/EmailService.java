@@ -6,32 +6,26 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import com.udemy.spring.cloud.commons.model.auth.User;
+import com.udemy.spring.cloud.email.client.IUserCloudClientFeign;
 import com.udemy.spring.cloud.email.model.data.ConfirmationToken;
-import com.udemy.spring.cloud.email.model.database.ConfirmationTokenRepository;
 import com.udemy.spring.cloud.email.service.IEmailService;
 import com.udemy.spring.cloud.email.service.ITemplateService;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class EmailService implements IEmailService {
     
-    @Autowired
-    private ConfirmationTokenRepository confirmationTokenRepository;
-    @Autowired
-    private ITemplateService iTemplateService;
-
-    private JavaMailSender javaMailSender;
-
-    @Autowired
-    public EmailService(JavaMailSender javaMailSender) {
-        this.javaMailSender = javaMailSender;
-    }
+    private final IUserCloudClientFeign iUserCloudClientFeign;
+    private final ITemplateService iTemplateService;
+    private final JavaMailSender javaMailSender;
 
     public MimeMessage buildMimeMessage() {
         return javaMailSender.createMimeMessage();
@@ -43,24 +37,26 @@ public class EmailService implements IEmailService {
         confirmationToken.setToken(user.getEmailToken());
         confirmationToken.setEmail(user.getEmail());
 
-        confirmationTokenRepository.save(confirmationToken);
-
         MimeMessage mimeMessage = buildMimeMessage();
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
         mimeMessageHelper.setTo(user.getEmail());
-        mimeMessageHelper.setSubject("Complete Registration!");
+        mimeMessageHelper.setSubject("Verify Registration!");
         mimeMessageHelper.setText(iTemplateService.generateHtmlVerify(user), true);
 
         sendEmail(mimeMessage);
         return user;
     }
 
-    public ConfirmationToken confirmEmailAccount(String unconfirmedToken) {
-        ConfirmationToken confirmationToken = confirmationTokenRepository.findByToken(unconfirmedToken);
-        if (confirmationToken != null) {
-            confirmationTokenRepository.deleteById(confirmationToken.getTokenId());
+    public String confirmEmailAccount(String unconfirmedToken) {
+        User user = iUserCloudClientFeign.findByEmailToken(unconfirmedToken);
+        if (user != null) {
+            user.setLoginTry(0);
+            user.setEmailStatus("VERIFIED");
+            iUserCloudClientFeign.save(user);
+            return user.getEmail();
+        } else {
+            return null;
         }
-        return confirmationToken;
     }
 
     @Async
