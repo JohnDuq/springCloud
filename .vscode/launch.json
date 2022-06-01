@@ -46,18 +46,6 @@
         },
         {
             "type": "java",
-            "name": "service-producer 8001",
-            "request": "launch",
-            "cwd": "${workspaceFolder}",
-            "mainClass": "com.udemy.spring.cloud.service.producer.app.ServiceProducerApplication",
-            "projectName": "service-producer",
-            "args": "",
-            "vmArgs": "-Dserver.port=8001",
-            "console": "internalConsole",
-            "internalConsoleOptions": "openOnSessionStart"
-        },
-        {
-            "type": "java",
             "name": "service-producer random port",
             "request": "launch",
             "cwd": "${workspaceFolder}",
