@@ -1,4 +1,5 @@
 FROM openjdk:11
+ENV SPRING_PROFILES_ACTIVE=dock
 VOLUME /tmp
 EXPOSE 9100
 ENV config.security.oauth.client.id=consumerApp
