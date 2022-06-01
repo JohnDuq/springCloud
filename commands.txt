@@ -35,3 +35,5 @@ docker start [CONTAINER ID]
 docker stop [CONTAINER ID]
 // Comando para listar todos los contenedores
 docker ps -a
+//Iniciar el Docker Compose
+docker-compose up

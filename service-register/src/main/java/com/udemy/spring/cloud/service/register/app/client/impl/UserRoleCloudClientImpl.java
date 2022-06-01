@@ -1,5 +1,7 @@
 package com.udemy.spring.cloud.service.register.app.client.impl;
 
+import java.util.Collections;
+
 import com.udemy.spring.cloud.commons.model.auth.User;
 import com.udemy.spring.cloud.service.register.app.client.IUserRoleCloudClient;
 import com.udemy.spring.cloud.service.register.app.common.BeanName;
@@ -20,7 +22,25 @@ public class UserRoleCloudClientImpl implements IUserRoleCloudClient {
     private WebClient webClient;
 
     public Mono<User> findByUsername(String username) {
-        return null;
+        return webClient.get()
+            .uri(uriBuilder -> uriBuilder
+                .path("/".concat(BeanName.USER_DAO))
+                .queryParam("username", username)
+                .build())
+            .accept(MediaType.APPLICATION_JSON)
+            .retrieve()
+            .bodyToMono(User.class);
+    }
+
+    public Mono<User> findByEmail(String email) {
+        return webClient.get()
+            .uri(uriBuilder -> uriBuilder
+                .path("/".concat(BeanName.USER_DAO))
+                .queryParam("email", email)
+                .build())
+            .accept(MediaType.APPLICATION_JSON)
+            .retrieve()
+            .bodyToMono(User.class);
     }
 
     public Mono<User> save(User user) {

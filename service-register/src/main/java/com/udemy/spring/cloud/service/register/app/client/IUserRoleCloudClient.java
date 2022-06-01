@@ -8,6 +8,8 @@ public interface IUserRoleCloudClient {
 
     public Mono<User> findByUsername(String username);
 
+    public Mono<User> findByEmail(String email);
+
     public Mono<User> save(User user);
 
     public Mono<User> update(User user, Long idUser);

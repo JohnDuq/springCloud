@@ -30,6 +30,7 @@ public class RegisterServiceImpl implements IRegisterService {
         return Mono.just(user)
                 .doOnNext(this::setDefaultValues)
                 .flatMap(iUserRoleCloudClient::save)
+                .flatMap(userSaved -> iUserRoleCloudClient.findByUsername(userSaved.getUsername()))
                 .flatMap(iEmailServiceClient::sendEmailVerification);
     }
 
@@ -40,7 +41,7 @@ public class RegisterServiceImpl implements IRegisterService {
         user.setEmailToken(RandomStringUtils.randomAlphabetic(15));
         user.setLoginTry(DefaultValue.LOGIN_TRY);
         user.setCreateAt(new Date());
-        user.setCreateFor(DefaultValue.SYSTEM);
+        user.setCreateFor(DefaultValue.SYSTEM); //TODO Put the user that make the transaction
         return user;
     }
 
