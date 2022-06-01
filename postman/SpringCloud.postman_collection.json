@@ -2,67 +2,321 @@
 	"info": {
 		"_postman_id": "d27303ad-b8d8-4a9f-add4-deed7c70dbeb",
 		"name": "SpringCloud",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1245790"
 	},
 	"item": [
 		{
-			"name": "Config Server",
+			"name": "config",
 			"item": [
 				{
-					"name": "service-client default",
+					"name": "service-user-role",
+					"item": [
+						{
+							"name": "service-client default",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8888/service-user-role/default",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8888",
+									"path": [
+										"service-user-role",
+										"default"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "service-client dev",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8888/service-user-role/dev",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8888",
+									"path": [
+										"service-user-role",
+										"dev"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "service-client dock",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8888/service-user-role/dock",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8888",
+									"path": [
+										"service-user-role",
+										"dock"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "service-email",
+					"item": [
+						{
+							"name": "service-email default",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8888/service-email/default",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8888",
+									"path": [
+										"service-email",
+										"default"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "service-email dev",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8888/service-email/dev",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8888",
+									"path": [
+										"service-email",
+										"dev"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "GET PORT",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "findByUsername",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "ROOT",
+									"type": "text"
+								}
+							]
+						},
 						"url": {
-							"raw": "http://localhost:8888/service-client/default",
+							"raw": "http://localhost:{{portUserRole}}/user-dao/search/findByUsername",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8888",
+							"port": "{{portUserRole}}",
 							"path": [
-								"service-client",
-								"default"
+								"user-dao",
+								"search",
+								"findByUsername"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "service-client dev",
+					"name": "findByEmail",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "ROOT@EMAIL.COM",
+									"type": "text"
+								}
+							]
+						},
 						"url": {
-							"raw": "http://localhost:8888/service-client/dev",
+							"raw": "http://localhost:{{portUserRole}}/user-dao/search/findByEmail",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8888",
+							"port": "{{portUserRole}}",
 							"path": [
-								"service-client",
-								"dev"
+								"user-dao",
+								"search",
+								"findByEmail"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "service-client prod",
+					"name": "findByEmailToken",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "emailToken",
+									"value": "ZtPfzWylYznIBxP",
+									"type": "text"
+								}
+							]
+						},
 						"url": {
-							"raw": "http://localhost:8888/service-client/prod",
+							"raw": "http://localhost:{{portUserRole}}/user-dao/search/findByEmailToken",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8888",
+							"port": "{{portUserRole}}",
 							"path": [
-								"service-client",
-								"prod"
+								"user-dao",
+								"search",
+								"findByEmailToken"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getByUsername",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{portUserRole}}/user-dao/search/getByUsername?username=ROOT",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{portUserRole}}",
+							"path": [
+								"user-dao",
+								"search",
+								"getByUsername"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "ROOT"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{portUserRole}}/user-dao/search/find-id?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{portUserRole}}",
+							"path": [
+								"user-dao",
+								"search",
+								"find-id"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRolesByUser",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "ROOT",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:{{portUserRole}}/role-dao/search/getRolesByUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{portUserRole}}",
+							"path": [
+								"role-dao",
+								"search",
+								"getRolesByUser"
 							]
 						}
 					},
@@ -71,7 +325,504 @@
 			]
 		},
 		{
-			"name": "Gateway",
+			"name": "auth",
+			"item": [
+				{
+					"name": "oauth-token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"bodyData = JSON.parse(responseBody);\r",
+									"accessToken=bodyData.access_token;\r",
+									"refreshToken=bodyData.refresh_token;\r",
+									"console.log(\"accessToken: \" + accessToken);\r",
+									"console.log(\"refreshToken: \" + refreshToken);\r",
+									"pm.environment.set(\"accessToken\", accessToken);\r",
+									"pm.environment.set(\"refreshToken\", refreshToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "54321",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "consumerApp",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "Rhett94",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "aeiou",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:9100/oauth/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9100",
+							"path": [
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "oauth-token",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "username",
+											"value": "ROOT",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "12345",
+											"type": "text"
+										},
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:9100/oauth-token",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9100",
+									"path": [
+										"oauth-token"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Set-Cookie",
+									"value": "JSESSIONID=57349B9FDC79D1722727FEE940297E51; Path=/; HttpOnly"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "WWW-Authenticate",
+									"value": "Basic realm=\"Realm\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "0"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Aug 2021 17:34:24 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "oauth-token refresh",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "54321",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "consumerApp",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "refresh_token",
+									"type": "text"
+								},
+								{
+									"key": "refresh_token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsYXN0TmFtZSI6IlJPT1QiLCJ1c2VyX25hbWUiOiJST09UIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImF0aSI6IjgyNWQ3ZDdiLThhN2QtNGMzNi1iMjQwLWU0OTBhMDBiZDcyYiIsIm5hbWUiOiJST09UIiwiZXhwIjoxNjI5OTI3NzExLCJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIiwiUk9MRV9VU0VSIl0sImp0aSI6IjI4Y2IxYWNkLTEwOWYtNGViOS05NmYxLWVlMmQ0YTlmNTI3NSIsImVtYWlsIjoiUk9PVEBFTUFJTC5DT00iLCJjbGllbnRfaWQiOiJjb25zdW1lckFwcCIsInN0YXR1cyI6IkVOQUJMRSJ9.s0WeNqc4jfKmDz14CeblozZsRVHRm54Nv392ShndC9o",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:9100/oauth/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9100",
+							"path": [
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "producer",
+			"item": [
+				{
+					"name": "findAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{portProducer}}/findAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{portProducer}}",
+							"path": [
+								"findAll"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "client",
+			"item": [
+				{
+					"name": "findAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8002/findAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8002",
+							"path": [
+								"findAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findByIdAmount",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8002/findByIdAmount/1/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8002",
+							"path": [
+								"findByIdAmount",
+								"1",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-config default",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8002/get-config",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8002",
+							"path": [
+								"get-config"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-config direct",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8002/get-config",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8002",
+							"path": [
+								"get-config"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-config dev",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8002/get-config",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8002",
+							"path": [
+								"get-config"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-config prod",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8002/get-config",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8002",
+							"path": [
+								"get-config"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actuator refresh",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8002/actuator/refresh",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8002",
+							"path": [
+								"actuator",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "email",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{$randomFirstName}}\",\r\n    \"lastName\": \"{{$randomLastName}}\",\r\n    \"email\": \"{{$randomEmail}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8989/registerEmailAccount",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8989",
+							"path": [
+								"registerEmailAccount"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "confirmEmailAccount",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8989/confirmEmailAccount?token=oDkgNoTnlJFopHE",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8989",
+							"path": [
+								"confirmEmailAccount"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "oDkgNoTnlJFopHE"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "confirmEmailAccountView",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8989/confirmEmailAccountView/SsgBHmxEWmDGnWr",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8989",
+							"path": [
+								"confirmEmailAccountView",
+								"SsgBHmxEWmDGnWr"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "register",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"{{$randomUserName}}\",\r\n    \"password\" : \"aeiou\",\r\n    \"name\": \"{{$randomFirstName}}\",\r\n    \"lastName\": \"{{$randomLastName}}\",\r\n    \"email\": \"{{$randomEmail}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/user-register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"user-register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "gateway",
 			"item": [
 				{
 					"name": "auth",
@@ -594,7 +1345,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n    \"username\": \"{{$randomUserName}}\",\r\n    \"password\": \"{{passwordUSER}}\",\r\n    \"status\": \"ENABLE\",\r\n    \"name\": \"{{$randomFirstName}}\",\r\n    \"lastName\": \"{{$randomLastName}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"createFor\": \"POSTMAN\",\r\n    \"createAt\": \"2021-07-30T15:59:52.130+00:00\",\r\n    \"updateFor\": null,\r\n    \"updateAt\": null\r\n}",
+													"raw": "{\r\n    \"username\": \"{{$randomUserName}}\",\r\n    \"password\": \"{{passwordUSER}}\",\r\n    \"status\": \"ENABLE\",\r\n    \"name\": \"{{$randomFirstName}}\",\r\n    \"lastName\": \"{{$randomLastName}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"emailStatus\": \"VERIFIED\",\r\n    \"createFor\": \"POSTMAN\",\r\n    \"createAt\": \"2021-07-30T15:59:52.130+00:00\",\r\n    \"updateFor\": null,\r\n    \"updateAt\": null\r\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -1189,603 +1940,6 @@
 							"response": []
 						}
 					]
-				}
-			]
-		},
-		{
-			"name": "Client",
-			"item": [
-				{
-					"name": "findAll",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8014/findAll",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8014",
-							"path": [
-								"findAll"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "findByIdAmount",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8002/findByIdAmount/1/4",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8002",
-							"path": [
-								"findByIdAmount",
-								"1",
-								"4"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get-config default",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8002/get-config",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8002",
-							"path": [
-								"get-config"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get-config direct",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8002/get-config",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8002",
-							"path": [
-								"get-config"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get-config dev",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8002/get-config",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8002",
-							"path": [
-								"get-config"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get-config prod",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8002/get-config",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8002",
-							"path": [
-								"get-config"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "actuator refresh",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8002/actuator/refresh",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8002",
-							"path": [
-								"actuator",
-								"refresh"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Producer",
-			"item": [
-				{
-					"name": "findAll",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:38019/findAll",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "38019",
-							"path": [
-								"findAll"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "auth",
-			"item": [
-				{
-					"name": "oauth-token",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"bodyData = JSON.parse(responseBody);\r",
-									"accessToken=bodyData.access_token;\r",
-									"refreshToken=bodyData.refresh_token;\r",
-									"console.log(\"accessToken: \" + accessToken);\r",
-									"console.log(\"refreshToken: \" + refreshToken);\r",
-									"pm.environment.set(\"accessToken\", accessToken);\r",
-									"pm.environment.set(\"refreshToken\", refreshToken);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "54321",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "consumerApp",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "username",
-									"value": "ROOT",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "12345",
-									"type": "text"
-								},
-								{
-									"key": "grant_type",
-									"value": "password",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost:9100/oauth/token",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9100",
-							"path": [
-								"oauth",
-								"token"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "oauth-token",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "username",
-											"value": "ROOT",
-											"type": "text"
-										},
-										{
-											"key": "password",
-											"value": "12345",
-											"type": "text"
-										},
-										{
-											"key": "grant_type",
-											"value": "password",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "http://localhost:9100/oauth-token",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "9100",
-									"path": [
-										"oauth-token"
-									]
-								}
-							},
-							"status": "Unauthorized",
-							"code": 401,
-							"_postman_previewlanguage": "plain",
-							"header": [
-								{
-									"key": "Set-Cookie",
-									"value": "JSESSIONID=57349B9FDC79D1722727FEE940297E51; Path=/; HttpOnly"
-								},
-								{
-									"key": "X-Content-Type-Options",
-									"value": "nosniff"
-								},
-								{
-									"key": "X-XSS-Protection",
-									"value": "1; mode=block"
-								},
-								{
-									"key": "Cache-Control",
-									"value": "no-cache, no-store, max-age=0, must-revalidate"
-								},
-								{
-									"key": "Pragma",
-									"value": "no-cache"
-								},
-								{
-									"key": "Expires",
-									"value": "0"
-								},
-								{
-									"key": "X-Frame-Options",
-									"value": "DENY"
-								},
-								{
-									"key": "WWW-Authenticate",
-									"value": "Basic realm=\"Realm\""
-								},
-								{
-									"key": "Content-Length",
-									"value": "0"
-								},
-								{
-									"key": "Date",
-									"value": "Sun, 22 Aug 2021 17:34:24 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": null
-						}
-					]
-				},
-				{
-					"name": "oauth-token refresh",
-					"request": {
-						"auth": {
-							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "54321",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "consumerApp",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "grant_type",
-									"value": "refresh_token",
-									"type": "text"
-								},
-								{
-									"key": "refresh_token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsYXN0TmFtZSI6IlJPT1QiLCJ1c2VyX25hbWUiOiJST09UIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImF0aSI6IjgyNWQ3ZDdiLThhN2QtNGMzNi1iMjQwLWU0OTBhMDBiZDcyYiIsIm5hbWUiOiJST09UIiwiZXhwIjoxNjI5OTI3NzExLCJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIiwiUk9MRV9VU0VSIl0sImp0aSI6IjI4Y2IxYWNkLTEwOWYtNGViOS05NmYxLWVlMmQ0YTlmNTI3NSIsImVtYWlsIjoiUk9PVEBFTUFJTC5DT00iLCJjbGllbnRfaWQiOiJjb25zdW1lckFwcCIsInN0YXR1cyI6IkVOQUJMRSJ9.s0WeNqc4jfKmDz14CeblozZsRVHRm54Nv392ShndC9o",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost:9100/oauth/token",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9100",
-							"path": [
-								"oauth",
-								"token"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Email",
-			"item": [
-				{
-					"name": "register",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"{{$randomEmail}}\",\r\n    \"firstName\": \"{{$randomFirstName}}\",\r\n    \"lastName\": \"{{$randomLastName}}\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8989/registerEmailAccount",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8989",
-							"path": [
-								"registerEmailAccount"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "confirmEmailAccount",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8989/confirmEmailAccount?token=155bcb63-2f44-404a-a62d-45b8330b8058",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8989",
-							"path": [
-								"confirmEmailAccount"
-							],
-							"query": [
-								{
-									"key": "token",
-									"value": "155bcb63-2f44-404a-a62d-45b8330b8058"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "user",
-			"item": [
-				{
-					"name": "findAll",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": []
-						},
-						"url": {
-							"raw": "http://localhost:45957/user-dao",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "45957",
-							"path": [
-								"user-dao"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "findByUsername Copy",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "username",
-									"value": "ROOT",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost:61373/user-dao/search/findByUsername",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "61373",
-							"path": [
-								"user-dao",
-								"search",
-								"findByUsername"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getByUsername",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:42585/user-dao/search/getByUsername?username=ROOT",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "42585",
-							"path": [
-								"user-dao",
-								"search",
-								"getByUsername"
-							],
-							"query": [
-								{
-									"key": "username",
-									"value": "ROOT"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "find-id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:61373/user-dao/search/find-id?id=1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "61373",
-							"path": [
-								"user-dao",
-								"search",
-								"find-id"
-							],
-							"query": [
-								{
-									"key": "id",
-									"value": "1"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getRolesByUser",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "username",
-									"value": "ROOT",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost:59550/role-dao/search/getRolesByUser",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "59550",
-							"path": [
-								"role-dao",
-								"search",
-								"getRolesByUser"
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		}
