@@ -4,7 +4,6 @@ import javax.mail.MessagingException;
 
 import com.udemy.spring.cloud.commons.model.auth.User;
 import com.udemy.spring.cloud.email.common.ServiceMapping;
-import com.udemy.spring.cloud.email.model.data.ConfirmationToken;
 import com.udemy.spring.cloud.email.service.IEmailService;
 
 import org.springframework.beans.factory.annotation.Autowired;

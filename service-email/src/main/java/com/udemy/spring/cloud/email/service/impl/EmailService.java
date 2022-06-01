@@ -1,13 +1,10 @@
 package com.udemy.spring.cloud.email.service.impl;
 
-import java.util.Date;
-
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import com.udemy.spring.cloud.commons.model.auth.User;
 import com.udemy.spring.cloud.email.client.IUserCloudClientFeign;
-import com.udemy.spring.cloud.email.model.data.ConfirmationToken;
 import com.udemy.spring.cloud.email.service.IEmailService;
 import com.udemy.spring.cloud.email.service.ITemplateService;
 
@@ -32,17 +29,11 @@ public class EmailService implements IEmailService {
     }
 
     public User registerEmailAccount(User user) throws MessagingException {
-        ConfirmationToken confirmationToken = new ConfirmationToken();
-        confirmationToken.setCreatedDate(new Date());
-        confirmationToken.setToken(user.getEmailToken());
-        confirmationToken.setEmail(user.getEmail());
-
         MimeMessage mimeMessage = buildMimeMessage();
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
         mimeMessageHelper.setTo(user.getEmail());
         mimeMessageHelper.setSubject("Verify Registration!");
         mimeMessageHelper.setText(iTemplateService.generateHtmlVerify(user), true);
-
         sendEmail(mimeMessage);
         return user;
     }
@@ -52,6 +43,8 @@ public class EmailService implements IEmailService {
         if (user != null) {
             user.setLoginTry(0);
             user.setEmailStatus("VERIFIED");
+            user.setStatus("ENABLE");
+            user.setEmailToken(null);
             iUserCloudClientFeign.save(user);
             return user.getEmail();
         } else {
