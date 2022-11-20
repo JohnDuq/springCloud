@@ -179,15 +179,31 @@ services:
     depends_on:
       - service-producer-container-1
       - service-producer-container-2
-  zuul-gateway-container:
-    image: zuul-gateway-image:v1
-    build: ./zuul-gateway
+  # zuul-gateway-container:
+  #   image: zuul-gateway-image:v1
+  #   build: ./zuul-gateway
+  #   ports:
+  #     - "8090:8090"
+  #   restart: always
+  #   networks:
+  #     - springcloud
+  #   env_file:
+  #     - 'docker-variables/spring.env'
+  #   depends_on:
+  #     - service-client-container
+  spring-gateway-container:
+    image: spring-gateway-image:v1
+    build: ./spring-gateway
     ports:
       - "8090:8090"
+    environment:
+      WAIT_HOSTS: service-register-container:9090, service-auth-container:9100, service-client-container:8002
     restart: always
     networks:
       - springcloud
     env_file:
       - 'docker-variables/spring.env'
     depends_on:
+      - service-register-container
+      - service-auth-container
       - service-client-container
