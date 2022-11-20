@@ -114,18 +114,24 @@ services:
       - rabbit-mq-container
       - zipkin-server-container
       - service-user-role-container
-  # service-register-container:
-  #   image: service-register-image:v1
-  #   build: ./service-register
-  #   ports:
-  #     - "9001:9001"
-  #   restart: always
-  #   networks:
-  #     - springcloud
-  #   env_file:
-  #     - 'docker-variables/spring.env'
-  #   depends_on:
-  #     - service-user-role-container
+  service-register-container:
+    image: service-register-image:v1
+    build: ./service-register
+    ports:
+      - "9090:9090"
+    environment:
+      WAIT_HOSTS: config-server-container:8888, eureka-server-container:8761
+    restart: always
+    networks:
+      - springcloud
+    env_file:
+      - 'docker-variables/spring.env'
+    depends_on:
+      - config-server-container
+      - eureka-server-container
+      - rabbit-mq-container
+      - zipkin-server-container
+      - service-user-role-container
   # service-auth-container:
   #   image: service-auth-image:v1
   #   build: ./service-auth
