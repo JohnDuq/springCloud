@@ -36,7 +36,6 @@ public class AuthenticationEvent implements AuthenticationEventPublisher {
         log.info("Success login: ".concat(userDetails.getUsername()));
         if (!consumerApp.equals(authentication.getName())) {
             User user = iUserService.findByUsername(authentication.getName());
-            log.info("USER LOGGED:".concat(user.toString()));
             user.setLoginTry(0);
             iUserService.update(user);
         }
