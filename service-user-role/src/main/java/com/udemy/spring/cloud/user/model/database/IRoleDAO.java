@@ -12,6 +12,8 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 @RepositoryRestResource(path = "role-dao")
 public interface IRoleDAO extends PagingAndSortingRepository<Role, Long> {
 
+    public Role findByName(@Param("name") String name);
+
     @Query("SELECT r FROM Role r WHERE r.idRole IN ("
             + "SELECT ur.role.idRole FROM UserRole ur WHERE ur.user.username = :username)")
     public List<Role> getRolesByUser(@Param("username") String username);

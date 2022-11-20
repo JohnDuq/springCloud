@@ -1,10 +1,14 @@
 package com.udemy.spring.cloud.email.service.impl;
 
+import java.util.Date;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+import com.udemy.spring.cloud.commons.model.auth.Role;
 import com.udemy.spring.cloud.commons.model.auth.User;
-import com.udemy.spring.cloud.email.client.IUserCloudClientFeign;
+import com.udemy.spring.cloud.commons.model.auth.UserRole;
+import com.udemy.spring.cloud.email.client.IUserRoleCloudClientFeign;
 import com.udemy.spring.cloud.email.service.IEmailService;
 import com.udemy.spring.cloud.email.service.ITemplateService;
 
@@ -20,7 +24,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class EmailService implements IEmailService {
     
-    private final IUserCloudClientFeign iUserCloudClientFeign;
+    private final IUserRoleCloudClientFeign iUserRoleCloudClientFeign;
     private final ITemplateService iTemplateService;
     private final JavaMailSender javaMailSender;
 
@@ -39,13 +43,24 @@ public class EmailService implements IEmailService {
     }
 
     public String confirmEmailAccount(String unconfirmedToken) {
-        User user = iUserCloudClientFeign.findByEmailToken(unconfirmedToken);
+        User user = iUserRoleCloudClientFeign.findUserByEmailToken(unconfirmedToken);
         if (user != null) {
             user.setLoginTry(0);
             user.setEmailStatus("VERIFIED");
             user.setStatus("ENABLE");
             user.setEmailToken(null);
-            iUserCloudClientFeign.save(user);
+            iUserRoleCloudClientFeign.save(user);
+
+            Role role = iUserRoleCloudClientFeign.findRoleByName("USER");
+
+            UserRole userRole = new UserRole();
+            userRole.setUser(user);
+            userRole.setRole(role);
+            userRole.setCreateAt(new Date());
+            userRole.setCreateFor("SYSTEM");
+
+            iUserRoleCloudClientFeign.saveUserRole(userRole);
+
             return user.getEmail();
         } else {
             return null;

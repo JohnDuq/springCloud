@@ -43,7 +43,7 @@ public class AuthenticationManagerJWT implements ReactiveAuthenticationManager {
 
                     //Convierte el listado de roler a C. GrantedAuthority como lo requiere spring framewaork
                     Collection<GrantedAuthority> listAuthorities = 
-                        roles.stream().map(role -> new SimpleGrantedAuthority(role)).collect(Collectors.toList());
+                        roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
 
                     // Retorna el usuario autenticado
                     return new UsernamePasswordAuthenticationToken(username, null, listAuthorities);
