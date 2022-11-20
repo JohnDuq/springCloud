@@ -79,22 +79,24 @@ services:
       - springcloud
     environment:
       WAIT_HOSTS: zipkin-server-container:9411
-  # service-user-role-container:
-  #   image: service-user-role-image:v1
-  #   build: ./service-user-role
-  #   restart: always
-  #   networks:
-  #     - springcloud
-  #   environment:
-  #     WAIT_HOSTS: config-server-container:8888, eureka-server-container:8888
-  #   env_file:
-  #     - './docker-variables/spring.env'
-  #   depends_on:
-  #     - mysql-db-container
-  #     - config-server-container
-  #     - eureka-server-container
-  #     - rabbit-mq-container
-  #     - zipkin-server-container
+  service-user-role-container:
+    image: service-user-role-image:v1
+    build: ./service-user-role
+    restart: always
+    networks:
+      - springcloud
+    ports:
+      - "9000:9000"
+    environment:
+      WAIT_HOSTS: config-server-container:8888, eureka-server-container:8888
+    env_file:
+      - './docker-variables/spring.env'
+    depends_on:
+      - mysql-db-container
+      - config-server-container
+      - eureka-server-container
+      - rabbit-mq-container
+      - zipkin-server-container
   # service-auth-container:
   #   image: service-auth-image:v1
   #   build: ./service-auth

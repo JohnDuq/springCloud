@@ -122,16 +122,8 @@
 			]
 		},
 		{
-			"name": "user",
+			"name": "user-role",
 			"item": [
-				{
-					"name": "GET PORT",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": []
-				},
 				{
 					"name": "findByUsername",
 					"protocolProfileBehavior": {
@@ -151,12 +143,12 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:{{portUserRole}}/user-dao/search/findByUsername",
+							"raw": "http://localhost:9000/user-dao/search/findByUsername",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "{{portUserRole}}",
+							"port": "9000",
 							"path": [
 								"user-dao",
 								"search",

@@ -24,7 +24,7 @@
         },
         {
             "type": "java",
-            "name": "service-user-role random port",
+            "name": "service-user-role 9000",
             "request": "launch",
             "mainClass": "com.udemy.spring.cloud.user.ServiceUserRoleApplication",
             "projectName": "service-user-role",
