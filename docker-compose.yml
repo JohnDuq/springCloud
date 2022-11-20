@@ -97,6 +97,20 @@ services:
       - eureka-server-container
       - rabbit-mq-container
       - zipkin-server-container
+  service-auth-container:
+    image: service-auth-image:v1
+    build: ./service-auth
+    ports:
+      - "9100:9100"
+    environment:
+      WAIT_HOSTS: config-server-container:8888, eureka-server-container:8761
+    restart: always
+    networks:
+      - springcloud
+    env_file:
+      - 'docker-variables/spring.env'
+    depends_on:
+      - service-user-role-container
   service-email-container:
     image: service-email-image:v1
     build: ./service-email
@@ -132,51 +146,39 @@ services:
       - rabbit-mq-container
       - zipkin-server-container
       - service-user-role-container
-  # service-auth-container:
-  #   image: service-auth-image:v1
-  #   build: ./service-auth
-  #   ports:
-  #     - "9100:9100"
-  #   restart: always
-  #   networks:
-  #     - springcloud
-  #   env_file:
-  #     - 'docker-variables/spring.env'
-  #   depends_on:
-  #     - service-user-role-container
-  # service-producer-container-1:
-  #   image: service-producer-image:v1
-  #   build: ./service-producer
-  #   restart: always
-  #   networks:
-  #     - springcloud
-  #   env_file:
-  #     - 'docker-variables/spring.env'
-  #   depends_on:
-  #     - service-auth-container
-  # service-producer-container-2:
-  #   image: service-producer-image:v1
-  #   build: ./service-producer
-  #   restart: always
-  #   networks:
-  #     - springcloud
-  #   env_file:
-  #     - 'docker-variables/spring.env'
-  #   depends_on:
-  #     - service-auth-container
-  # service-client-container:
-  #   image: service-client-image:v1
-  #   build: ./service-client
-  #   ports:
-  #     - "8002:8002"
-  #   restart: always
-  #   networks:
-  #     - springcloud
-  #   env_file:
-  #     - 'docker-variables/spring.env'
-  #   depends_on:
-  #     - service-producer-container-1
-  #     - service-producer-container-2
+  service-producer-container-1:
+    image: service-producer-image:v1
+    build: ./service-producer
+    restart: always
+    networks:
+      - springcloud
+    env_file:
+      - 'docker-variables/spring.env'
+    depends_on:
+      - service-auth-container
+  service-producer-container-2:
+    image: service-producer-image:v1
+    build: ./service-producer
+    restart: always
+    networks:
+      - springcloud
+    env_file:
+      - 'docker-variables/spring.env'
+    depends_on:
+      - service-auth-container
+  service-client-container:
+    image: service-client-image:v1
+    build: ./service-client
+    ports:
+      - "8002:8002"
+    restart: always
+    networks:
+      - springcloud
+    env_file:
+      - 'docker-variables/spring.env'
+    depends_on:
+      - service-producer-container-1
+      - service-producer-container-2
   # zuul-gateway-container:
   #   image: zuul-gateway-image:v1
   #   build: ./zuul-gateway
