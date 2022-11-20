@@ -18,12 +18,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8888/service-user-role/default",
+									"raw": "http://localhost:{{portConfigServer}}/service-user-role/default",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8888",
+									"port": "{{portConfigServer}}",
 									"path": [
 										"service-user-role",
 										"default"
@@ -38,12 +38,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8888/service-user-role/dev",
+									"raw": "http://localhost:{{portConfigServer}}/service-user-role/dev",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8888",
+									"port": "{{portConfigServer}}",
 									"path": [
 										"service-user-role",
 										"dev"
@@ -58,12 +58,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8888/service-user-role/dock",
+									"raw": "http://localhost:{{portConfigServer}}/service-user-role/dock",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8888",
+									"port": "{{portConfigServer}}",
 									"path": [
 										"service-user-role",
 										"dock"
@@ -78,17 +78,17 @@
 					"name": "service-email",
 					"item": [
 						{
-							"name": "service-email default",
+							"name": "service-client default",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8888/service-email/default",
+									"raw": "http://localhost:{{portConfigServer}}/service-email/default",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8888",
+									"port": "{{portConfigServer}}",
 									"path": [
 										"service-email",
 										"default"
@@ -98,20 +98,40 @@
 							"response": []
 						},
 						{
-							"name": "service-email dev",
+							"name": "service-client dev",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8888/service-email/dev",
+									"raw": "http://localhost:{{portConfigServer}}/service-user-role/dev",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8888",
+									"port": "{{portConfigServer}}",
+									"path": [
+										"service-user-role",
+										"dev"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "service-client dock",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:{{portConfigServer}}/service-email/dock",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{portConfigServer}}",
 									"path": [
 										"service-email",
-										"dev"
+										"dock"
 									]
 								}
 							},
@@ -143,12 +163,12 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:9000/user-dao/search/findByUsername",
+							"raw": "http://localhost:{{portUserRole}}/user-dao/search/findByUsername",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "9000",
+							"port": "{{portUserRole}}",
 							"path": [
 								"user-dao",
 								"search",
@@ -313,6 +333,71 @@
 						}
 					},
 					"response": []
+				}
+			]
+		},
+		{
+			"name": "register",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"{{$randomUserName}}\",\r\n    \"password\" : \"aeiou\",\r\n    \"name\": \"{{$randomFirstName}}\",\r\n    \"lastName\": \"{{$randomLastName}}\",\r\n    \"email\": \"{{$randomEmail}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{portRegister}}/user-register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{portRegister}}",
+							"path": [
+								"user-register"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\" : \"{{$randomUserName}}\",\r\n    \"password\" : \"aeiou\",\r\n    \"name\": \"{{$randomFirstName}}\",\r\n    \"lastName\": \"{{$randomLastName}}\",\r\n    \"email\": \"{{$randomEmail}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9090/user-register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9090",
+									"path": [
+										"user-register"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
 				}
 			]
 		},
@@ -773,39 +858,6 @@
 							"path": [
 								"confirmEmailAccountView",
 								"SsgBHmxEWmDGnWr"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "register",
-			"item": [
-				{
-					"name": "register",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"username\" : \"{{$randomUserName}}\",\r\n    \"password\" : \"aeiou\",\r\n    \"name\": \"{{$randomFirstName}}\",\r\n    \"lastName\": \"{{$randomLastName}}\",\r\n    \"email\": \"{{$randomEmail}}\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:9090/user-register",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9090",
-							"path": [
-								"user-register"
 							]
 						}
 					},
