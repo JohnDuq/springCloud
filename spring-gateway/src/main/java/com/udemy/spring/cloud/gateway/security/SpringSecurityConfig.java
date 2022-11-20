@@ -27,7 +27,8 @@ public class SpringSecurityConfig {
 								"/gateway/api/user/user-dao/search/findByUsername",
 								"/gateway/api/user/role-dao/search/getRolesByUser").permitAll()
 				.pathMatchers(HttpMethod.GET, "/gateway/api/user/user-dao/search/find-id").hasAnyRole("ADMIN", "USER")
-				.pathMatchers("/gateway/api/producer/**", 
+				.pathMatchers("/gateway/api/register/**",
+								"/gateway/api/producer/**", 
 								"/gateway/api/client/**", 
 								"/gateway/api/user/**").hasRole("ADMIN")
 				.anyExchange().authenticated()

@@ -57,3 +57,9 @@ spring:
           - Path=/gateway/api/user/**
         filters:
           - StripPrefix=3
+      - id: service-register
+        uri: lb://service-register
+        predicates:
+          - Path=/gateway/api/register/**
+        filters:
+          - StripPrefix=3
