@@ -337,10 +337,102 @@
 			]
 		},
 		{
+			"name": "email",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{$randomFirstName}}\",\r\n    \"lastName\": \"{{$randomLastName}}\",\r\n    \"email\": \"{{$randomEmail}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8989/registerEmailAccount",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8989",
+							"path": [
+								"registerEmailAccount"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "confirmEmailAccount",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8989/confirmEmailAccount?token=oDkgNoTnlJFopHE",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8989",
+							"path": [
+								"confirmEmailAccount"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "oDkgNoTnlJFopHE"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "confirmEmailAccountView",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8989/confirmEmailAccountView/SsgBHmxEWmDGnWr",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8989",
+							"path": [
+								"confirmEmailAccountView",
+								"SsgBHmxEWmDGnWr"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "register",
 			"item": [
 				{
 					"name": "register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"bodyData = JSON.parse(responseBody);\r",
+									"username=bodyData.username;\r",
+									"console.log(\"usernameRegistered: \" + username);\r",
+									"pm.environment.set(\"usernameRegistered\", username);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -365,39 +457,7 @@
 							]
 						}
 					},
-					"response": [
-						{
-							"name": "register",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"username\" : \"{{$randomUserName}}\",\r\n    \"password\" : \"aeiou\",\r\n    \"name\": \"{{$randomFirstName}}\",\r\n    \"lastName\": \"{{$randomLastName}}\",\r\n    \"email\": \"{{$randomEmail}}\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:9090/user-register",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "9090",
-									"path": [
-										"user-register"
-									]
-								}
-							},
-							"_postman_previewlanguage": null,
-							"header": null,
-							"cookie": [],
-							"body": null
-						}
-					]
+					"response": []
 				}
 			]
 		},
@@ -405,7 +465,7 @@
 			"name": "auth",
 			"item": [
 				{
-					"name": "oauth-token",
+					"name": "oauth-token root",
 					"event": [
 						{
 							"listen": "test",
@@ -446,12 +506,12 @@
 							"urlencoded": [
 								{
 									"key": "username",
-									"value": "Rhett94",
+									"value": "{{usernameROOT}}",
 									"type": "text"
 								},
 								{
 									"key": "password",
-									"value": "aeiou",
+									"value": "{{passwordROOT}}",
 									"type": "text"
 								},
 								{
@@ -462,113 +522,163 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:9100/oauth/token",
+							"raw": "http://localhost:{{portAuth}}/oauth/token",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "9100",
+							"port": "{{portAuth}}",
 							"path": [
 								"oauth",
 								"token"
 							]
 						}
 					},
-					"response": [
+					"response": []
+				},
+				{
+					"name": "oauth-token user",
+					"event": [
 						{
-							"name": "oauth-token",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "username",
-											"value": "ROOT",
-											"type": "text"
-										},
-										{
-											"key": "password",
-											"value": "12345",
-											"type": "text"
-										},
-										{
-											"key": "grant_type",
-											"value": "password",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "http://localhost:9100/oauth-token",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "9100",
-									"path": [
-										"oauth-token"
-									]
-								}
-							},
-							"status": "Unauthorized",
-							"code": 401,
-							"_postman_previewlanguage": "plain",
-							"header": [
-								{
-									"key": "Set-Cookie",
-									"value": "JSESSIONID=57349B9FDC79D1722727FEE940297E51; Path=/; HttpOnly"
-								},
-								{
-									"key": "X-Content-Type-Options",
-									"value": "nosniff"
-								},
-								{
-									"key": "X-XSS-Protection",
-									"value": "1; mode=block"
-								},
-								{
-									"key": "Cache-Control",
-									"value": "no-cache, no-store, max-age=0, must-revalidate"
-								},
-								{
-									"key": "Pragma",
-									"value": "no-cache"
-								},
-								{
-									"key": "Expires",
-									"value": "0"
-								},
-								{
-									"key": "X-Frame-Options",
-									"value": "DENY"
-								},
-								{
-									"key": "WWW-Authenticate",
-									"value": "Basic realm=\"Realm\""
-								},
-								{
-									"key": "Content-Length",
-									"value": "0"
-								},
-								{
-									"key": "Date",
-									"value": "Sun, 22 Aug 2021 17:34:24 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": null
+							"listen": "test",
+							"script": {
+								"exec": [
+									"bodyData = JSON.parse(responseBody);\r",
+									"accessToken=bodyData.access_token;\r",
+									"refreshToken=bodyData.refresh_token;\r",
+									"console.log(\"accessToken: \" + accessToken);\r",
+									"console.log(\"refreshToken: \" + refreshToken);\r",
+									"pm.environment.set(\"accessToken\", accessToken);\r",
+									"pm.environment.set(\"refreshToken\", refreshToken);"
+								],
+								"type": "text/javascript"
+							}
 						}
-					]
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "54321",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "consumerApp",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "{{usernameUSER}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{passwordUSER}}",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:{{portAuth}}/oauth/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{portAuth}}",
+							"path": [
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "oauth-token registered",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"bodyData = JSON.parse(responseBody);\r",
+									"accessToken=bodyData.access_token;\r",
+									"refreshToken=bodyData.refresh_token;\r",
+									"console.log(\"accessToken: \" + accessToken);\r",
+									"console.log(\"refreshToken: \" + refreshToken);\r",
+									"pm.environment.set(\"accessToken\", accessToken);\r",
+									"pm.environment.set(\"refreshToken\", refreshToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "54321",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "consumerApp",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "{{usernameRegistered}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{passwordRegistered}}",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:{{portAuth}}/oauth/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{portAuth}}",
+							"path": [
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": []
 				},
 				{
 					"name": "oauth-token refresh",
@@ -600,7 +710,7 @@
 								},
 								{
 									"key": "refresh_token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsYXN0TmFtZSI6IlJPT1QiLCJ1c2VyX25hbWUiOiJST09UIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImF0aSI6IjgyNWQ3ZDdiLThhN2QtNGMzNi1iMjQwLWU0OTBhMDBiZDcyYiIsIm5hbWUiOiJST09UIiwiZXhwIjoxNjI5OTI3NzExLCJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIiwiUk9MRV9VU0VSIl0sImp0aSI6IjI4Y2IxYWNkLTEwOWYtNGViOS05NmYxLWVlMmQ0YTlmNTI3NSIsImVtYWlsIjoiUk9PVEBFTUFJTC5DT00iLCJjbGllbnRfaWQiOiJjb25zdW1lckFwcCIsInN0YXR1cyI6IkVOQUJMRSJ9.s0WeNqc4jfKmDz14CeblozZsRVHRm54Nv392ShndC9o",
+									"value": "{{refreshToken}}",
 									"type": "text"
 								}
 							]
@@ -626,19 +736,219 @@
 			"name": "producer",
 			"item": [
 				{
-					"name": "findAll",
+					"name": "findAll Items",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "token",
+								"value": "123456",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
 						"url": {
-							"raw": "http://localhost:{{portProducer}}/findAll",
+							"raw": "http://localhost:{{portProducer}}/gateway/api/producer/findAll",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "{{portProducer}}",
 							"path": [
+								"gateway",
+								"api",
+								"producer",
 								"findAll"
+							],
+							"query": [
+								{
+									"key": "color",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "123456",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:{{portProducer}}/gateway/api/producer/findById/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{portProducer}}",
+							"path": [
+								"gateway",
+								"api",
+								"producer",
+								"findById",
+								"1"
+							],
+							"query": [
+								{
+									"key": "color",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create item",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"item created by post request\",\r\n    \"price\":1400,\r\n    \"createAt\": \"2021-07-27\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{portProducer}}/gateway/api/producer/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{portProducer}}",
+							"path": [
+								"gateway",
+								"api",
+								"producer",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update item",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"item created by post request 2\",\r\n    \"price\":1500,\r\n    \"createAt\": \"2021-07-28\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{portProducer}}/gateway/api/producer/update/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{portProducer}}",
+							"path": [
+								"gateway",
+								"api",
+								"producer",
+								"update",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete item",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{portProducer}}/gateway/api/producer/delete/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{portProducer}}",
+							"path": [
+								"gateway",
+								"api",
+								"producer",
+								"delete",
+								"5"
 							]
 						}
 					},
@@ -788,86 +1098,68 @@
 			]
 		},
 		{
-			"name": "email",
+			"name": "gateway",
 			"item": [
 				{
 					"name": "register",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"{{$randomFirstName}}\",\r\n    \"lastName\": \"{{$randomLastName}}\",\r\n    \"email\": \"{{$randomEmail}}\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8989/registerEmailAccount",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8989",
-							"path": [
-								"registerEmailAccount"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "confirmEmailAccount",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8989/confirmEmailAccount?token=oDkgNoTnlJFopHE",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8989",
-							"path": [
-								"confirmEmailAccount"
-							],
-							"query": [
+					"item": [
+						{
+							"name": "register",
+							"event": [
 								{
-									"key": "token",
-									"value": "oDkgNoTnlJFopHE"
+									"listen": "test",
+									"script": {
+										"exec": [
+											"bodyData = JSON.parse(responseBody);\r",
+											"username=bodyData.username;\r",
+											"console.log(\"usernameRegistered: \" + username);\r",
+											"pm.environment.set(\"usernameRegistered\", username);"
+										],
+										"type": "text/javascript"
+									}
 								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "confirmEmailAccountView",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8989/confirmEmailAccountView/SsgBHmxEWmDGnWr",
-							"protocol": "http",
-							"host": [
-								"localhost"
 							],
-							"port": "8989",
-							"path": [
-								"confirmEmailAccountView",
-								"SsgBHmxEWmDGnWr"
-							]
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\" : \"{{$randomUserName}}\",\r\n    \"password\" : \"aeiou\",\r\n    \"name\": \"{{$randomFirstName}}\",\r\n    \"lastName\": \"{{$randomLastName}}\",\r\n    \"email\": \"{{$randomEmail}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:{{portGateway}}/gateway/api/register/user-register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{portGateway}}",
+									"path": [
+										"gateway",
+										"api",
+										"register",
+										"user-register"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "gateway",
-			"item": [
+					]
+				},
 				{
 					"name": "auth",
 					"item": [
@@ -932,12 +1224,12 @@
 											]
 										},
 										"url": {
-											"raw": "http://localhost:8090/gateway/api/security/oauth/token",
+											"raw": "http://localhost:{{portGateway}}/gateway/api/security/oauth/token",
 											"protocol": "http",
 											"host": [
 												"localhost"
 											],
-											"port": "8090",
+											"port": "{{portGateway}}",
 											"path": [
 												"gateway",
 												"api",
@@ -1007,12 +1299,87 @@
 											]
 										},
 										"url": {
-											"raw": "http://localhost:8090/gateway/api/security/oauth/token",
+											"raw": "http://localhost:{{portGateway}}/gateway/api/security/oauth/token",
 											"protocol": "http",
 											"host": [
 												"localhost"
 											],
-											"port": "8090",
+											"port": "{{portGateway}}",
+											"path": [
+												"gateway",
+												"api",
+												"security",
+												"oauth",
+												"token"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "oauth token Registered",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"bodyData = JSON.parse(responseBody);\r",
+													"accessToken=bodyData.access_token;\r",
+													"refreshToken=bodyData.refresh_token;\r",
+													"console.log(\"accessToken: \" + accessToken);\r",
+													"console.log(\"refreshToken: \" + refreshToken);\r",
+													"pm.environment.set(\"accessToken\", accessToken);\r",
+													"pm.environment.set(\"refreshToken\", refreshToken);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "consumerApp",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "54321",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "username",
+													"value": "{{usernameRegistered}}",
+													"type": "text"
+												},
+												{
+													"key": "password",
+													"value": "{{passwordRegistered}}",
+													"type": "text"
+												},
+												{
+													"key": "grant_type",
+													"value": "{{grant_type}}",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "http://localhost:{{portGateway}}/gateway/api/security/oauth/token",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "{{portGateway}}",
 											"path": [
 												"gateway",
 												"api",
@@ -1060,12 +1427,12 @@
 											]
 										},
 										"url": {
-											"raw": "http://localhost:8090/gateway/api/security/oauth/token",
+											"raw": "http://localhost:{{portGateway}}/gateway/api/security/oauth/token",
 											"protocol": "http",
 											"host": [
 												"localhost"
 											],
-											"port": "8090",
+											"port": "{{portGateway}}",
 											"path": [
 												"gateway",
 												"api",
@@ -1528,12 +1895,12 @@
 									}
 								],
 								"url": {
-									"raw": "http://localhost:8090/gateway/api/client/findAll",
+									"raw": "http://localhost:{{portGateway}}/gateway/api/client/findAll",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8090",
+									"port": "{{portGateway}}",
 									"path": [
 										"gateway",
 										"api",
@@ -1560,12 +1927,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8090/gateway/api/client/findByIdAmount/1/4",
+									"raw": "http://localhost:{{portGateway}}/gateway/api/client/findByIdAmount/1/4",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8090",
+									"port": "{{portGateway}}",
 									"path": [
 										"gateway",
 										"api",
@@ -1594,12 +1961,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8090/gateway/api/client/get-config",
+									"raw": "http://localhost:{{portGateway}}/gateway/api/client/get-config",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8090",
+									"port": "{{portGateway}}",
 									"path": [
 										"gateway",
 										"api",
@@ -1635,12 +2002,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8090/gateway/api/client/create",
+									"raw": "http://localhost:{{portGateway}}/gateway/api/client/create",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8090",
+									"port": "{{portGateway}}",
 									"path": [
 										"gateway",
 										"api",
@@ -1676,12 +2043,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8090/gateway/api/client/update/5",
+									"raw": "http://localhost:{{portGateway}}/gateway/api/client/update/5",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8090",
+									"port": "{{portGateway}}",
 									"path": [
 										"gateway",
 										"api",
@@ -1709,12 +2076,12 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8090/gateway/api/client/delete/5",
+									"raw": "http://localhost:{{portGateway}}/gateway/api/client/delete/5",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8090",
+									"port": "{{portGateway}}",
 									"path": [
 										"gateway",
 										"api",
@@ -1742,12 +2109,12 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8090/gateway/api/client/actuator/refresh",
+									"raw": "http://localhost:{{portGateway}}/gateway/api/client/actuator/refresh",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8090",
+									"port": "{{portGateway}}",
 									"path": [
 										"gateway",
 										"api",
@@ -1792,12 +2159,12 @@
 									}
 								],
 								"url": {
-									"raw": "http://localhost:8090/gateway/api/producer/findAll",
+									"raw": "http://localhost:{{portGateway}}/gateway/api/producer/findAll",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8090",
+									"port": "{{portGateway}}",
 									"path": [
 										"gateway",
 										"api",
@@ -1843,12 +2210,12 @@
 									}
 								],
 								"url": {
-									"raw": "http://localhost:8090/gateway/api/producer/findById/1",
+									"raw": "http://localhost:{{portGateway}}/gateway/api/producer/findById/1",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8090",
+									"port": "{{portGateway}}",
 									"path": [
 										"gateway",
 										"api",
@@ -1892,12 +2259,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8090/gateway/api/producer/create",
+									"raw": "http://localhost:{{portGateway}}/gateway/api/producer/create",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8090",
+									"port": "{{portGateway}}",
 									"path": [
 										"gateway",
 										"api",
@@ -1933,12 +2300,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8090/gateway/api/producer/update/5",
+									"raw": "http://localhost:{{portGateway}}/gateway/api/producer/update/5",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8090",
+									"port": "{{portGateway}}",
 									"path": [
 										"gateway",
 										"api",
@@ -1966,12 +2333,12 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8090/gateway/api/producer/delete/5",
+									"raw": "http://localhost:{{portGateway}}/gateway/api/producer/delete/5",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8090",
+									"port": "{{portGateway}}",
 									"path": [
 										"gateway",
 										"api",
