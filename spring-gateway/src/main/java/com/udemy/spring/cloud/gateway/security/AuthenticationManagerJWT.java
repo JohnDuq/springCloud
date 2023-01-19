@@ -28,9 +28,9 @@ public class AuthenticationManagerJWT implements ReactiveAuthenticationManager {
     @Override
     @SuppressWarnings("unchecked")
     public Mono<Authentication> authenticate(Authentication authentication) {
-        return Mono.just(authentication.getCredentials().toString()) // Consigue el token de la petición
+        return Mono.just(authentication.getCredentials().toString()) // GetRequest token
                 .map(token -> {
-                    // Consigue la llave del token del servidor de configuración en git
+                    // Get key token from configuration server git
                     SecretKey secretKey = Keys.hmacShaKeyFor(Base64.getEncoder().encode(keyJWT.getBytes()));
                     // Valida con la clave secreta el token y retorna la información usuario-roles
                     return Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token).getBody();
